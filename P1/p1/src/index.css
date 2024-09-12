@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::selection {
+    color: darkred;
+}
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@keyframes scroll-up {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%); /* Moves by half the content height */
+    }
+}
+
+.scroll-container {
+    height: 100vh; /* Full viewport height */
+    overflow: hidden;
+    position: relative;
+}
+
+.scroll-content {
+    display: flex;
+    flex-direction: column;
+    height: 200%; /* Twice the height of the container */
+    animation: scroll-up 20s linear infinite; /* Adjust duration as needed */
+}
+
+.scroll-content img {
+    height: 110px; /* Ensure all images are of the same height */
+    width: auto;
+}
