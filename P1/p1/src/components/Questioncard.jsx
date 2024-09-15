@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-function Questioncard() {
+function Questioncard({items}) {
   const [answer, setanswer] = useState('');
+
 
   const list = [
     {
@@ -30,7 +31,8 @@ function Questioncard() {
 
   return (
     <>
-      {list.map((item, index) => (
+      {items.length > 0 ? (
+        items.map((item, index) => (
         <motion.div
           key={index}
           className='relative mt-5 rounded-[100px] border border-gray-600 shadow-lg bg-gradient-to-r from-gray-700 via-gray-800 to-black w-[80vw]'
@@ -70,7 +72,7 @@ function Questioncard() {
             </label>
           </div>
         </motion.div>
-      ))}
+      ))) : <h1 className='text-white font-semibold'>Enter parameters</h1> }
     </>
   );
 }

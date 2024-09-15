@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()], // Keep React plugin
   server: {
     https: {
-      key: fs.readFileSync('G:/JavaScript/P1/SpringBack/p1/privatekey.pem'),
-      cert: fs.readFileSync('G:/JavaScript/P1/SpringBack/p1/certificate.pem'),
+      key: fs.readFileSync('G:/JavaScript/Techy/P1/SpringBack/p1/privatekey.pem'),
+      cert: fs.readFileSync('G:\\JavaScript\\Techy\\P1\\SpringBack\\p1\\certificate.pem'),
     },
   },
 });

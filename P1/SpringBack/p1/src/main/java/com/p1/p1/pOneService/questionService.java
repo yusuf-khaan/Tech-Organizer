@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +19,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.p1.p1.DAO.questionsDao;
 import com.p1.p1.models.Questions;
@@ -128,6 +131,18 @@ public class questionService {
 
         return imageData;
     }
-}
 
- 
+        public List<Questions> generator(String category, Integer numbers) {
+            try {
+            List<Questions> questions = new ArrayList<>();
+            questions = questionRepository.generateQuestions(category, numbers);
+            System.out.println(questions);
+            return questions;
+            }
+            catch(Exception e) {
+                return new ArrayList<Questions>();
+            }
+        }
+    }
+
+    

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,9 +7,16 @@
     color: darkred;
 }
 
-* {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+*{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+};
+
+.fjalla-one-regular {
+    font-family: "Fjalla One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
 
 @keyframes scroll-up {
     0% {

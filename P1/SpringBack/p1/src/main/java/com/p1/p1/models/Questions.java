@@ -1,5 +1,6 @@
 package com.p1.p1.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,10 @@ public class Questions {
     private Integer id;
 
     private String question;
+
+    @Column(name = "category")
+
+    private String category;
 
     @Lob
     private byte[] questionImage;
