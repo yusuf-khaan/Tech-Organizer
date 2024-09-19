@@ -38,10 +38,9 @@ function Home() {
   // Duplicate the image list for continuous scrolling
   const duplicatedImageList = [...imageList, ...imageList];
 
-
+  const marks = 0;
 
   const validateInfo = async () => {
-    // Validation to check if number is within the correct range
     if (noOfQuestions > 20 || noOfQuestions < 1) {
       alert("Please enter a number between 1 and 20");
     } else {
@@ -54,19 +53,22 @@ function Home() {
         });
         const data = await response.json();
         setquestions(data);
+        setMarks(0);  // Reset the marks to zero when a new quiz is generated
         console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
   };
+  
 
   return (
     <div className='fixed overflow-y-scroll bg-black h-full w-full'>
 
 <div className="flex flex-wrap w-[50vw] px-5 mt-[100px]">
-        <Questioncard items = {questions}/>
-      </div>
+  <Questioncard items={questions} zero={marks} />
+</div>
+
       
 
 

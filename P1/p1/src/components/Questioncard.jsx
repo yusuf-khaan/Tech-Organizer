@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect }  from 'react';
 import { motion } from 'framer-motion';
 
-function Questioncard({ items }) {
+
+function Questioncard({ items, zero }) {
   const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
-  const [marks, setMarks] = useState(0); // Track total marks
+  const [marks, setMarks] = useState(zero); // Track total marks
 
   // Handle checkbox change
   const handleCheckboxChange = (questionIndex, selectedOption) => {
@@ -12,6 +13,11 @@ function Questioncard({ items }) {
       [questionIndex]: selectedOption, // Record selected option for each question
     }));
   };
+
+  useEffect(() => {
+    setMarks(zero); // Reset marks when the zero prop changes
+  }, [zero]);
+  
 
   // Check answers and calculate marks
   const handleSubmit = () => {
