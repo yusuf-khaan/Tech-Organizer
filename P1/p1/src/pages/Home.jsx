@@ -72,9 +72,9 @@ function Home() {
       
 
 
-      <div className='fixed flex w-[40vw] ml-20 top-0 left-[50vw]'>
+      <div className='fixed flex w-[40vw] p-5 ml-20 top-0 left-[50vw]'>
 
-        <div className='absolute bg-black shadow-md shadow-white h-[30vh] -translate-x-1/2 ml-[150px] mt-[120px] overflow-hidden w-[20vw] rounded-full'>
+        <div className='fixed  bg-black shadow-md shadow-white h-[30vh] -translate-x-1/2 ml-[150px] mt-[120px] overflow-hidden w-[20vw] rounded-full'>
           <div className='text-white justify-center flex flex-col items-center mt-2 overflow-hidden'>
             <h1 className='py-1'>Number Of Questions</h1>
             <input type='number' min='0' max='20' className='mt-2 w-[12vw] bg-black text-white ml-2 border-8 border-black' placeholder='...Number' onChange={(e) => { setnoOfQuestions(e.target.value); console.log(noOfQuestions); }} />
@@ -91,7 +91,7 @@ function Home() {
         </div>
 
 
-        <div className='flex flex-col  mt-[25vh] w-[50vw] items-center justify-center'>
+        <div className='flex flex-col p-5 mt-[25vh] w-[50vw] items-center justify-center'>
           <h1 className='text-white tracking-[.25em] italic font-bold translate-y-1/2 text-[30px] font-semibold'>Shoot For the Stars,</h1>
           <h1 className='text-white tracking-[.25em] italic translate-y-1/2 text-[30px] font-bold'>Aim For The Moon.</h1>
         </div>

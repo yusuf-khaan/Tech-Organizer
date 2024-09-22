@@ -3,7 +3,9 @@ package com.p1.p1.pOneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.p1.p1.DAO.FeedbackDAO;
 import com.p1.p1.DAO.pOne;
+import com.p1.p1.models.Feedback;
 import com.p1.p1.models.pOneModel;
 
 @Service
@@ -11,6 +13,9 @@ public class pOneService {
 
     @Autowired
     pOne poneDAO;
+
+    @Autowired
+    FeedbackDAO feedbackDAO;
 
     pOneModel user;
 
@@ -37,4 +42,16 @@ public class pOneService {
         }
         return "User Created Successfully";
     }
+
+    public String  feedback(Feedback feedback) {
+        try {
+        feedbackDAO.save(feedback);
+        return "We have Delivered Your Request";
+        }
+        catch(Exception e) {
+            return "Unfortunately, We have faced a Issue!";
+        }
+        
+    }
+
 }

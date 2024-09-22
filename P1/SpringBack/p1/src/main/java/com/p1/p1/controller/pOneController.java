@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.p1.p1.models.Feedback;
 import com.p1.p1.models.Questions;
 import com.p1.p1.models.pOneModel;
 import com.p1.p1.pOneService.pOneService;
@@ -62,6 +64,11 @@ public class pOneController {
     @RequestMapping(value ="/generate", method = RequestMethod.POST)
     public List<Questions> generateQuiz(@RequestParam String category, @RequestParam Integer numbers) {
         return questionservice.generator(category, numbers);
+    }
+
+    @PostMapping("/feed")
+    public String feedback(@RequestBody Feedback feedback ) {
+        return poneService.feedback(feedback);
     }
 
 

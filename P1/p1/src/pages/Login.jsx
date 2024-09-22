@@ -91,9 +91,16 @@ function Login() {
         })
 
         const responsePromise = await response.text();
-        console.log(responsePromise); // Log the response immediately
-        setmessage(responsePromise);
-        navigate('/home');
+        if(responsePromise === "Successfully Authenticated"){
+          setmessage(responsePromise);
+          navigate('/share');
+        }
+        else {
+          setmessage(responsePromise);
+          alert("Invalid Credentials");
+        }
+
+        // console.log(responsePromise); // Log the response immediately        
         // setmessage(responsePromise);
         // console.log(message);
       }

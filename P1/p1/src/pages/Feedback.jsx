@@ -1,31 +1,86 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 function Feedback() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [feedback, setFeedback] = useState('');
+
+  const validate = async (e) => {
+    try {
+      const response = await fetch("https://localhost:8081/pOne/feed", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          feedback: feedback,
+        }),
+      });
+
+      const data = await response.text();
+      // console.log(data);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
-    <div className='absolute bg-black h-full w-full overflow-hidden'>
-        <div className='flex flex-wrap font-semibold text-white w-[50vw] items-center ml-[51vw] mt-[50px] -translate-x-1/2 justify-center text-[40px]'>
-            <h1>Your Feedback is most{" "}
-            <span className='text-blue-600'> appreciated, </span>
-            <h1>to cook something Extravagent</h1></h1>
+    <div className="relative bg-black min-h-screen w-full p-5">
+      {/* Title Section */}
+      <div className="flex flex-wrap font-semibold text-white w-full md:w-3/4 lg:w-1/2 mx-auto mt-10 text-center text-2xl md:text-4xl justify-center">
+        <h1>
+          Your Feedback is most{" "}
+          <span className="text-blue-600">appreciated, </span>
+          to cook something Extravagant
+        </h1>
+      </div>
+
+      {/* Form Section */}
+      <div className="w-full md:w-3/4 lg:w-1/2 mx-auto mt-10 p-5 shadow-lg bg-slate-700/20 rounded-md">
+        {/* Name Input */}
+        <div className="flex flex-col md:flex-row md:items-center p-4">
+          <h1 className="text-white font-semibold text-lg md:w-1/3">Name</h1>
+          <input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            className="text-white w-full bg-slate-700/20 p-2 mt-2 md:mt-0 md:ml-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
         </div>
-        <div className='w-[50vw] mt-10 shadow-blue-600 shadow-lg translate-x-1/2 bg-slate-700/20  h-[70vh]'>
-        <div className='flex p-10'>
-        <h1 className='text-white font-semibold text-[20px]'>Name</h1>
-        <input type='Text' className='text-white ml-[100px] w-full bg-slate-700/20'/>
+
+        {/* Email Input */}
+        <div className="flex flex-col md:flex-row md:items-center p-4">
+          <h1 className="text-white font-semibold text-lg md:w-1/3">Email</h1>
+          <input
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="text-white w-full bg-slate-700/20 p-2 mt-2 md:mt-0 md:ml-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
         </div>
-        <div className='flex p-10'>
-        <h1 className='text-white font-semibold text-[20px]'>Email</h1>
-        <input type='Text' className='text-white ml-[100px] w-full bg-slate-700/20'/>
-        </div><div className='flex p-10'>
-        <h1 className='text-white font-semibold text-[20px] py-[70px]'>Message</h1>
-        <input type='Text' className='text-white ml-[75px] w-full bg-slate-700/20'/>
+
+        {/* Feedback Message Input */}
+        <div className="flex flex-col md:flex-row md:items-center p-4">
+          <h1 className="text-white font-semibold text-lg md:w-1/3">Message</h1>
+          <textarea
+            onChange={(e) => setFeedback(e.target.value)}
+            className="text-white w-full bg-slate-700/20 p-2 mt-2 md:mt-0 md:ml-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+            rows="4"
+          />
         </div>
-        <button className='justify-center flex ml-[190px] items-center flex rounded-md w-[35vw] h-8 bg-blue-600'>
+
+        {/* Submit Button */}
+        <div className="flex justify-center mt-5">
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md w-full md:w-[50vw] py-2"
+            onClick={validate}
+          >
             Submit
-        </button>
+          </button>
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default Feedback;
