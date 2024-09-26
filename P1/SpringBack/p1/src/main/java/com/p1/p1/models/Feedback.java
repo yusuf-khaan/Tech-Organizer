@@ -20,5 +20,5 @@ public class Feedback {
 
     private String feedback;
 
-    private boolean isReviewed;
+    private Boolean isReviewed;
 }

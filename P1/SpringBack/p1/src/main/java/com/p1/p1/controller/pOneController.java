@@ -1,9 +1,11 @@
 package com.p1.p1.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.p1.p1.models.Comments;
 import com.p1.p1.models.Feedback;
+import com.p1.p1.models.Post;
 import com.p1.p1.models.Questions;
 import com.p1.p1.models.pOneModel;
+import com.p1.p1.pOneService.PostService;
 import com.p1.p1.pOneService.pOneService;
 import com.p1.p1.pOneService.questionService;
 
@@ -28,6 +33,9 @@ public class pOneController {
 
     @Autowired
     private questionService questionservice;
+
+    @Autowired
+    private PostService postService;
 
     @RequestMapping(value ="login", method = RequestMethod.POST)
     public String login(@RequestBody pOneModel request) {
@@ -71,7 +79,20 @@ public class pOneController {
         return poneService.feedback(feedback);
     }
 
+    @RequestMapping(value = "/post" , method = RequestMethod.POST)
+    public String post(@RequestBody Post post) {
+        return postService.Post(post);
+    } 
 
+    @PostMapping("/comment")
+    public String comment(@RequestBody Comments comments) {
+        return postService.Comment(comments);
+    }
+
+    @GetMapping("/testcomment")
+    public Optional<Post> response(Integer id) {
+        return postService.response(id);
+    }
     
     
 }
