@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Share from './pages/Share';
 import Feedback from './pages/Feedback';
 import Quiz from './pages/Quiz';
+import Famchat from './pages/Famchat';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/share' element ={<Share/>} /> 
         <Route path='/feed' element={<Feedback />} />
         <Route path='/quiz' element={<Quiz />} />
+        <Route path='/fam' element={<Famchat />} />
 
       </Routes>
     </Router>

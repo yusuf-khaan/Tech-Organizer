@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 function Quiz() {
 
+    const total = 140;
+
+    const thoughts = "Mental pain is less dramatic than physical pain, but it is more common and also more hard to bear. The frequent attempt to conceal mental pain increases the burden: It is easier to say ‘My tooth is aching’ than to say ‘My heart is broken.’”  C.S. Lewis , The Problem of Pain"
+       
+
     const list = [
         {
             company_name: "Google India",
@@ -16,7 +21,7 @@ function Quiz() {
             career_website: "https://careers.microsoft.com/"
         },
         {
-            company_name: "Amazon India", 
+            company_name: "Amazon India",
             salary: "20,00,000",
             career_website: "https://www.amazon.jobs/en/"
         },
@@ -58,43 +63,76 @@ function Quiz() {
     ];
 
     const navigate = useNavigate();
-    
+
 
 
     const text = "Question of the day!";
     const QOTD = "Given an unsorted array of integers, sort the array into a wave array. An array arr[0..n-1] is sorted in wave form if: arr[0] >= arr[1] <= arr[2] >= arr[3] <= arr[4] >= . . .";
     return (
         <div className="bg-black h-screen w-screen relative container">
+            
             <h1 className="text-white flex justify-center text-[50px] tracking-[.40em] pt-[5px]">Puzzler</h1>
 
             <div className="w-[90vw] h-[85vh] bg-slate-900/25 rounded-[50px] overflow-hidden flex flex-col ml-[5vw] container">
 
-                <div className="flex  flex-col justify-center items-center">
-                    <div className="w-[85vw] flex flex-col items-center h-[100px] hover:bg-transparent hover:scale-110 transition-all duration-500 mt-5 bg-[#F7F7F7]/20 rounded-[50px] text-white py-2">
+                <div className="flex grow flex-col  justify-center items-center">
+                    <div className="w-[85vw] flex flex-col shadow-black shadow-lg items-center h-[100px] hover:bg-transparent hover:scale-110 transition-all duration-1000 mt-5 bg-[#F7F7F7]/10 rounded-[50px] text-white p-4">
                         <pre>{text}</pre>
-                        <p className="p-5 mt-2"> {QOTD}</p>
+                        <p className="mt-2"> {QOTD}</p>
                     </div>
                 </div>
 
                 <div className="m-5 h-full flex-wrap flex">
                     <TradingViewWidget />
-                    <div className="ml-10 hover:scale-105 transition-all duration-500 hover:bg-transparent rounded-[20px] bg-[#F7F7F7]/20 p-8 w-[25vw]">
-                        {list.map((items, index) => {
-                            return(
-                                <div className="hover:scale-105 font-semibold text-white bg-transparent flex p-2 justify-between items-center">
-                                    <h1>{items.company_name}</h1>
-                                    <h1>{"| INR "}{items.salary}</h1>
-                                </div>
-                            )
-                        })}
+
+                    
+
+                    <div className="ml-10 shadow-black shadow-lg hover:scale-105 transition-all duration-1000 hover:bg-transparent rounded-[20px] bg-[#F7F7F7]/10 w-[25vw] overflow-hidden">
+                        <div className="text-white items-center flex justify-center h-[50px] bg-black w-full">Top 10 With Highest Average!</div>
+                        <div className="px-8 py-3">
+                            {list.map((items, index) => {
+                                return (
+                                    <div className="hover:scale-105 font-semibold text-white bg-transparent flex p-2 justify-between items-center">
+                                        {/* <button onClick={(e) => {window.location.href = items.career_website}}>{items.company_name}</button>
+                                    <h1>{"| INR "}{items.salary}</h1> this opens the url in the same window*/}
+                                        <button onClick={(e) => { window.open(items.career_website, "_blank", "noopener,noreferrer") }}>{items.company_name}</button>
+                                        <h1>{"| INR "}{items.salary}</h1>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
+
+
+                    <div className="bg-[#F7F7F7]/10 shadow-black shadow-lg font-semibold text-white tracking-widest hover:scale-105 duration-1000 transition-all hover:bg-transparent h-[42vh] p-5 w-[32vw] ml-5 rounded-[20px]">
+                        <button><h1>
+                            Worried About MAANG or FANG Tech Rounds?<br /> No Worries! Check Out Our Catalogue of 100+ Questions to Ace Your Interviews!
+                        </h1>
+                            <h1 className="text-[140px] -mt-6">
+                                {total}{"+"}
+                            </h1>
+                            <h1 className="-mt-9">
+                                Tech Round Stories
+                            </h1>
+                            <h1 className="mt-1 font-thin">
+                                and still growing Indefinitely
+                            </h1>
+                        </button>
+                    </div>
+
+
+                    <div className="bg-[#F7F7F7]/10 -translate-y-[290px] tracking-widest shadow-black shadow-lg font-semibold text-white tracking-widest hover:scale-105 duration-1000 transition-all hover:bg-transparent h-[39vh] overflow-hidden w-[25vw] ml-2 rounded-[20px]">
+                        <img src="PixelScenery.gif" alt="bg" className="w-full h-full" />
+                        <h1 className="absolute text-white tracking-widest px-6 -mt-[220px] flex flex-grow">
+                        {thoughts}
+                        </h1>
+                    </div>
+
+
+
+                    
                 </div>
-
-
-
             </div>
-
-
         </div>
     );
 };
