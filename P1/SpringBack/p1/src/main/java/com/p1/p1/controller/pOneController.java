@@ -90,7 +90,8 @@ public class pOneController {
     }
 
     @GetMapping("/testcomment")
-    public Optional<Post> response(Integer id) {
+    public Optional<Post> response() {
+        Integer id = 1;
         return postService.response(id);
     }
     

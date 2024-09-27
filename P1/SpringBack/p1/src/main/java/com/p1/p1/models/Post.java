@@ -3,6 +3,8 @@ package com.p1.p1.models;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,5 +25,6 @@ public class Post {
     private String xp;
 
     @OneToMany(mappedBy = "post", cascade=CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Comments> comments;
 }

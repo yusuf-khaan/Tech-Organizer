@@ -30,6 +30,7 @@ public class PostService {
     }
 
     public Optional<Post> response(Integer id ){
-        return PostDao.findById(id).orElseThrow(Optional<Post>);
+        return postDao.findById(id);
+        // return postDao.findById(id).orElseThrow(() -> new RuntimeException("   "));
     }
 }
