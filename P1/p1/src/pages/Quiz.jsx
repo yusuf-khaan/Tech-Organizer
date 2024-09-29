@@ -7,8 +7,7 @@ function Quiz() {
     const total = 140;
 
     const thoughts = "Mental pain is less dramatic than physical pain, but it is more common and also more hard to bear. The frequent attempt to conceal mental pain increases the burden: It is easier to say ‘My tooth is aching’ than to say ‘My heart is broken.’”  C.S. Lewis , The Problem of Pain"
-       
-
+    
     const list = [
         {
             company_name: "Google India",
