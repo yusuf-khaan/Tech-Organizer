@@ -20,17 +20,18 @@ function Famchat() {
             comments : [...prev.comments, commObject]
         }));
         // setNewComment({});
-
         console.log("this is new comment", comments);
+
+        updateCommentDBS();
     }
     catch(e) {
-        console.log("errir");
+        console.log("error while handleComment");
     }
 }
     const user = "UserName";
     const xp = "This is the user Experience with the tech round";
 
-
+// Fetch whole post data!!!
     useEffect(() => {
         const fam = async (e) => {
             try {
@@ -65,27 +66,29 @@ function Famchat() {
         console.log(famChat);
     },[famChat]);
 
-    useEffect((e) => {
+    // useEffect((e) => {
         const updateCommentDBS = async() => {
 
         try {
+            console.log(famChat.id, "this is the id of the post");
             const response = await fetch("https://localhost:8081/pOne/comment", {
                 method : "POST",
                 headers : {
                     "Content-Type" : "Application/json",
-                },
+                },  
                 body : JSON.stringify({
                     id : comments.length + 1,
                     author : "Panda",
                     comment : newComment,
-                    post_id : Famchat.id,
+                    post : famChat,
                 })
             });
         }
         catch(e) {
-            console.log("error");
+            console.log("error inside updataDBS");
         }
-    }},[])
+    };
+    // ,[])
 
     return (
         <div className="relative min-h-screen h-auto w-full bg-black">
