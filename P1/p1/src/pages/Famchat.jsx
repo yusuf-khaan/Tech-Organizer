@@ -10,28 +10,28 @@ function Famchat() {
     const handleComment = () => {
         try {
             const commObject = {
-                id : comments.length + 1,
-                comment : newComment,
-                author : "Panda",
+                id: comments.length + 1,
+                comment: newComment,
+                author: "Panda",
             }
-        setComments(prev => [...prev, commObject])
-        setfamChat(prev => ({
-            ...prev, 
-            comments : [...prev.comments, commObject]
-        }));
-        // setNewComment({});
-        console.log("this is new comment", comments);
+            setComments(prev => [...prev, commObject])
+            setfamChat(prev => ({
+                ...prev,
+                comments: [...prev.comments, commObject]
+            }));
+            // setNewComment({});
+            console.log("this is new comment", comments);
 
-        updateCommentDBS();
+            updateCommentDBS();
+        }
+        catch (e) {
+            console.log("error while handleComment");
+        }
     }
-    catch(e) {
-        console.log("error while handleComment");
-    }
-}
     const user = "UserName";
     const xp = "This is the user Experience with the tech round";
 
-// Fetch whole post data!!!
+    // Fetch whole post data!!!
     useEffect(() => {
         const fam = async (e) => {
             try {
@@ -64,27 +64,27 @@ function Famchat() {
 
     useEffect((e) => {
         console.log(famChat);
-    },[famChat]);
+    }, [famChat]);
 
     // useEffect((e) => {
-        const updateCommentDBS = async() => {
+    const updateCommentDBS = async () => {
 
         try {
             console.log(famChat.id, "this is the id of the post");
             const response = await fetch("https://localhost:8081/pOne/comment", {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "Application/json",
-                },  
-                body : JSON.stringify({
-                    id : comments.length + 1,
-                    author : "Panda",
-                    comment : newComment,
-                    post : famChat,
+                method: "POST",
+                headers: {
+                    "Content-Type": "Application/json",
+                },
+                body: JSON.stringify({
+                    id: comments.length + 1,
+                    author: "Panda",
+                    comment: newComment,
+                    post: famChat,
                 })
             });
         }
-        catch(e) {
+        catch (e) {
             console.log("error inside updataDBS");
         }
     };
@@ -93,18 +93,18 @@ function Famchat() {
     return (
         <div className="relative min-h-screen h-auto w-full bg-black">
             <h1 className="text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
-            
-            
+
+
             <div className="justify-center items-center flex p-4 text-white ">
                 <div className="bg-[#F7F7F7]/10 h-auto flex rounded-lg p-5 min-h-[50vh] w-[80vw]">
-                <div className="bg-[#F7F7F7]/10 min-h-[50vh] rounded-lg shadow-black shadow-sm h-full w-[80vw]">
-                    <div className="h-[25px] bg-[#F7F7F7]/10 ml-3 transition-all duration-1000 rounded-lg w-[73vw]">
-                        <div className="m-5 tracking-widest">
-                            {famChat ? famChat.originalposter : "Loading...."}
+                    <div className="bg-[#F7F7F7]/10 min-h-[50vh] rounded-lg shadow-black shadow-sm h-full w-[80vw]">
+                        <div className="h-[25px] bg-[#F7F7F7]/10 ml-3 transition-all duration-1000 rounded-lg w-[73vw]">
+                            <div className="m-5 tracking-widest">
+                                {famChat ? famChat.originalposter : "Loading...."}
+                            </div>
                         </div>
+                        <h1 className="text-white py-2 px-3">{famChat ? famChat.xp : "Loading...."}</h1>
                     </div>
-                    <h1 className="text-white py-2 px-3">{famChat ? famChat.xp : "Loading...."}</h1>
-                </div>
                 </div>
             </div>
 
@@ -145,7 +145,14 @@ function Famchat() {
                     { }
                     {/* <input type="Text" className="w-full p-2 text-white flex grow bg-[#F7F7F7]/10 rounded-lg"/> */}
                     <textarea onChange={(e) => setNewComment(e.target.value)} className="w-full p-2 text-white flex grow bg-[#F7F7F7]/10 shadow-md shadow-black rounded-lg h-full tracking-wider text-sm" rows="6" placeholder="Inserts new comment!...." />
-                    <button onClick={(e) => {handleComment(e)}} className="bg-[#0174BE] w-[80px] h-7 rounded-[12px] hover:scale-110 shadow-md shadow-black transition-all duration-500 tracking-widest text-sm font-semibold mt-2">Submit</button>
+                    <button onClick={(e) => {
+                        if (newComment.trim() !== "" && newComment.length > 5) {
+                            handleComment(e)
+                        } else {
+                            alert("Please be serious")
+                        }
+                    }}
+                        className="bg-[#0174BE] w-[80px] h-7 rounded-[12px] hover:scale-110 shadow-md shadow-black transition-all duration-500 tracking-widest text-sm font-semibold mt-2">Submit</button>
                 </div>
             </div>
         </div>
