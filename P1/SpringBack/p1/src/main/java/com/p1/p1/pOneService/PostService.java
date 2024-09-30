@@ -1,5 +1,7 @@
 package com.p1.p1.pOneService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,12 @@ public class PostService {
 
     public String Comment(Comments comment) {
         commentsDao.save(comment);
+        // System.out.println(comment);
         return "Successfully Commented";
+    }
+
+    public Comments comm(Integer id) {
+        return commentsDao.findBypost_id(id);
     }
 
     public Optional<Post> response(Integer id ){

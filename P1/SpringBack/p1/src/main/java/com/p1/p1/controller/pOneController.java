@@ -84,7 +84,7 @@ public class pOneController {
         return postService.Post(post);
     } 
 
-    @PostMapping("/comment")
+    @PostMapping("/comment")  
     public String comment(@RequestBody Comments comments) {
         return postService.Comment(comments);
     }
@@ -94,6 +94,11 @@ public class pOneController {
         Integer id = 1;
         return postService.response(id);
     }
-    
+
+    @GetMapping("/Testgetcomment")
+    public Comments getComment(@RequestParam Integer id) {
+        return postService.comm(id);
+    }
+
     
 }

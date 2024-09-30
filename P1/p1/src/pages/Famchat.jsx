@@ -9,8 +9,18 @@ function Famchat() {
 
     const handleComment = () => {
         try {
-        setComments(prev => [...prev, newComment])
-        setNewComment("");
+            const commObject = {
+                id : comments.length + 1,
+                comment : newComment,
+                author : "Panda",
+            }
+        setComments(prev => [...prev, commObject])
+        setfamChat(prev => ({
+            ...prev, 
+            comments : [...prev.comments, commObject]
+        }));
+        // setNewComment({});
+
         console.log("this is new comment", comments);
     }
     catch(e) {
@@ -50,6 +60,32 @@ function Famchat() {
             console.log(comments);
         }
     }, [comments]);
+
+    useEffect((e) => {
+        console.log(famChat);
+    },[famChat]);
+
+    useEffect((e) => {
+        const updateCommentDBS = async() => {
+
+        try {
+            const response = await fetch("https://localhost:8081/pOne/comment", {
+                method : "POST",
+                headers : {
+                    "Content-Type" : "Application/json",
+                },
+                body : JSON.stringify({
+                    id : comments.length + 1,
+                    author : "Panda",
+                    comment : newComment,
+                    post_id : Famchat.id,
+                })
+            });
+        }
+        catch(e) {
+            console.log("error");
+        }
+    }},[])
 
     return (
         <div className="relative min-h-screen h-auto w-full bg-black">
