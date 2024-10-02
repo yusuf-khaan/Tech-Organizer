@@ -101,22 +101,25 @@ function Famchat() {
         <div className="relative min-h-screen h-auto w-full bg-black">
             <h1 className="text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
 
-            <div className="bg-[#F7F7F7]/10 w-[8vw] top-0 left-0 mt-5 rounded-lg ml-2 flex shadow-white items-center justify-center fixed h-[95vh]">
+            <div className="z-10 bg-[#F7F7F7]/10 w-[9vw] top-0 left-0 mt-5 rounded-lg ml-2 flex shadow-white items-center justify-center fixed h-[95vh]">
                 <div className="bg-black p-5 -top-2 -right-2 absolute z-10 rounded-full">
                     <div className="bg-green-700 rounded-full p-1"></div>
                 </div>
-                <div className="bg-gradient-to-b items-center from-[#0174BE] to-[#6ea6e6] flex items-center flex-col w-[7vw] rounded-lg shadow-white p-2 fixed h-[92%]">
+
+                {/* <div className="bg-gradient-to-b items-center from-[#0174BE] to-[#6ea6e6] flex items-center flex-col w-[8vw] rounded-lg shadow-white p-2 fixed h-[92%]"> */}
+                <div className="bg-[url('/City.gif')] items-center flex items-center flex-col w-[8vw] rounded-[25px] shadow-white p-2 fixed h-[92%]">
+                    {/* <img src="Stars.gif" alt="bg" className="w-full object-cover absolute inset-0 h-full"/> */}
                     <div className="py-[4vh]">
-                        <button onClick={(e) => navigate('/share')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                        <button onClick={(e) => navigate('/share')} className="bg-white p-5 mt-[8vh] opacity-100 flex hover:bg-transparent justify-center rounded-full hover:scale-125 duration-800 transition-all">
                             <FaHome />
                         </button>
-                        <button onClick={(e) => navigate('home')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                        <button onClick={(e) => navigate('home')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center hover:bg-transparent rounded-full hover:scale-125 duration-800 transition-all">
                             <LuPuzzle />
                         </button>
-                        <button onClick={(e) => navigate('quiz')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                        <button onClick={(e) => navigate('quiz')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:bg-transparent hover:scale-125 duration-800 transition-all">
                             <LuLayoutDashboard />
                         </button>
-                        <button onClick={(e) => navigate('feed')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                        <button onClick={(e) => navigate('feed')} className="bg-white hover:bg-transparent p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
                             <VscFeedback />
                         </button>
                     </div>
@@ -124,50 +127,57 @@ function Famchat() {
             </div>
 
 
-            <div className="justify-center relative items-center flex p-4 text-white ">
-                <div className="bg-[#F7F7F7]/10 h-auto flex rounded-lg p-5 min-h-[50vh] w-[80vw]">
-                    <div className="bg-[#F7F7F7]/10 min-h-[40vh] rounded-lg shadow-black shadow-sm h-full w-[80vw]">
-                        <div className="h-[25px] bg-[#F7F7F7]/10 ml-3 transition-all duration-1000 rounded-lg w-[73vw]">
-                            <div className="m-5 tracking-widest">
-                                {famChat ? famChat.originalposter : "Loading...."}
-                            </div>
-                        </div>
-                        <h1 className="text-white py-2 px-3">{famChat ? famChat.xp : "Loading...."}</h1>
-                    </div>
-
-                    <div className="absolute flex justify-between items-center bottom-[3vh] bg-[#F7F7F7]/10 w-[12%] h-[10%] rounded-full p-2">
-                        <button className="flex hover:scale-125 items-center"> {/* Group the first icon and number together */}
-                            <div className="flex items-center">
-                                <BiUpvote className="text-md" /> {/* First icon */}
-                            </div>
-                            <span className="text-sm mt-1 ml-3">0</span> {/* Number attached to the first icon */}
-                        </button>
-                        <button className="flex hover:scale-125 items-center justify-center"> {/* Second icon */}
-                            <BiUpvote className="text-md" />
-                        </button>
-                    </div>
-
+            <div className="flex justify-center relative items-center p-4 text-white ml-10">
+    <div className="bg-[#F7F7F7]/10 flex flex-col rounded-lg p-5 min-h-[50vh] w-[80vw]">
+        <div className="bg-[#F7F7F7]/10 min-h-[40vh] rounded-lg px-3 shadow-black shadow-sm h-full w-full">
+            <div className="h-[25px] bg-[#F7F7F7]/10 items-center shadow-black shadow-sm transition-all duration-1000 rounded-lg w-[99%]">
+                <div className="m-5 tracking-widest">
+                    {famChat ? famChat.originalposter : "Loading...."}
                 </div>
             </div>
+            <h1 className="text-white py-3 px-3">{famChat ? famChat.xp : "Loading...."}</h1>
+        </div>
 
-            {comments.length !== 0 ? comments.map((item, index) => {
-                return (
-                    <div key={index}>
-                        <div className="flex justify-center p-2">
-                            <div className="min-h-[80px] max-h-auto justify-center flex grow p-3 items-center bg-[#F7F7F7]/10 rounded-lg max-w-[80vw]">
-                                <div className="text-white max-w-[77vw] flex-col max-h-auto grow shadow-black shadow-md p-2 rounded-lg bg-[#F7F7F7]/10">
-                                    <div className="bg-[#F7F7F7]/10 items-center w-full shadow-black shadow-sm duration-1000 rounded-lg h-8">
-                                        <h1 className="ml-2">{item.author}</h1>
+        {/* Upvote Button Section */}
+        <div className="flex justify-between items-center shadow-black shadow-md bg-[#F7F7F7]/10 w-[12%] h-[40px] rounded-full p-2 mt-3">
+            <button className="flex hover:scale-125 items-center">
+                <BiUpvote className="text-md" />
+                <span className="text-sm ml-2">0</span>
+            </button>
+            <button className="flex hover:scale-125 items-center justify-center">
+                <BiUpvote className="text-md" />
+            </button>
+        </div>
+    </div>
+</div>
+
+
+            {comments.length > 0 ? comments.map((item, index) => (
+                <div key={index} className="flex justify-center p-2 ml-10">
+                    <div className="relative flex flex-col w-[80vw] p-5 bg-[#F7F7F7]/10 rounded-lg">
+                        <div className="text-white flex flex-col shadow-black shadow-md p-2 rounded-lg bg-[#F7F7F7]/10">
+                            <div className="bg-[#F7F7F7]/10 w-full shadow-black shadow-sm duration-1000 rounded-lg h-8 flex items-center">
+                                <h1 className="ml-2">{item.author}</h1>
+                            </div>
+                            <h1 className="mt-5">{item.comment}</h1>
+                        </div>
+                        <div className="flex text-white justify-start pt-[7vh]"> {/* Added padding-top to separate the upvote from the comment */}
+                            <div className="absolute flex justify-between shadow-black shadow-md h-[40px] items-center bottom-[3vh] bg-[#F7F7F7]/10 w-[12%] h-[10%] rounded-full p-2">
+                                <button className="flex hover:scale-125 items-center"> {/* Group the first icon and number together */}
+                                    <div className="flex items-center">
+                                        <BiUpvote className="text-md" /> {/* First icon */}
                                     </div>
-                                    <h1 className="mt-5">
-                                        {item.comment}
-                                    </h1>
-                                </div>
+                                    <span className="text-sm mt-1 ml-3">0</span> {/* Number attached to the first icon */}
+                                </button>
+                                <button className="flex hover:scale-125 items-center justify-center"> {/* Second icon */}
+                                    <BiUpvote className="text-md" />
+                                </button>
                             </div>
                         </div>
                     </div>
-                )
-            }) : <></>}
+                </div>
+            )) : null}
+
 
             {/* <div className="flex justify-center p-2">
                 <div className="min-h-[80px] max-h-auto justify-center flex grow p-3 items-center bg-[#F7F7F7]/10 rounded-lg max-w-[80vw]">
@@ -183,7 +193,7 @@ function Famchat() {
             </div> */}
 
             <div className="justify-center items-center flex">
-                <div className="bg-[#F7F7F7]/10 h-auto shadow-lg shadow-black rounded-lg p-5 min-h-[30vh] w-[80vw]">
+                <div className="bg-[#F7F7F7]/10 h-auto ml-10 shadow-lg shadow-black rounded-lg p-5 min-h-[30vh] w-[80vw]">
                     { }
                     {/* <input type="Text" className="w-full p-2 text-white flex grow bg-[#F7F7F7]/10 rounded-lg"/> */}
                     <textarea onChange={(e) => setNewComment(e.target.value)} className="w-full p-2 text-white flex grow bg-[#F7F7F7]/10 shadow-md shadow-black rounded-lg h-full tracking-wider text-sm" rows="6" placeholder="Inserts new comment!...." />
