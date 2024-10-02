@@ -4,15 +4,16 @@ import { FaHome } from "react-icons/fa";
 import { LuPuzzle } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { NavLink, useNavigate } from "react-router-dom";
 import { BiUpvote } from "react-icons/bi";
+import Navert from "../components/Navert";
 
 function Famchat() {
 
     const [famChat, setfamChat] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({});
-    const navigate = useNavigate();
+    // const [isCancelled, setisCancelled] = useState(false);
+    // const navigate = useNavigate();
 
     const handleComment = () => {
         try {
@@ -50,10 +51,12 @@ function Famchat() {
                 });
 
                 const data = await response.json();
+                if(isCancelled) {
                 setfamChat(data);
                 setComments(data.comments);
                 // console.log(comments);
                 console.log(data);
+                }
             }
             catch (e) {
                 console.log("failed to fetch");
@@ -97,34 +100,16 @@ function Famchat() {
     };
     // ,[])
 
+    // const handlenavigate =(e) => {
+    //     navigate(e.target.value);
+    //     // navigate();
+    // }
+
     return (
         <div className="relative min-h-screen h-auto w-full bg-black">
             <h1 className="text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
 
-            <div className="z-10 bg-[#F7F7F7]/10 w-[9vw] top-0 left-0 mt-5 rounded-lg ml-2 flex shadow-white items-center justify-center fixed h-[95vh]">
-                <div className="bg-black p-5 -top-2 -right-2 absolute z-10 rounded-full">
-                    <div className="bg-green-700 rounded-full p-1"></div>
-                </div>
-
-                {/* <div className="bg-gradient-to-b items-center from-[#0174BE] to-[#6ea6e6] flex items-center flex-col w-[8vw] rounded-lg shadow-white p-2 fixed h-[92%]"> */}
-                <div className="bg-[url('/City.gif')] items-center flex items-center flex-col w-[8vw] rounded-[25px] shadow-white p-2 fixed h-[92%]">
-                    {/* <img src="Stars.gif" alt="bg" className="w-full object-cover absolute inset-0 h-full"/> */}
-                    <div className="py-[4vh]">
-                        <button onClick={(e) => navigate('/share')} className="bg-white p-5 mt-[8vh] opacity-100 flex hover:bg-transparent justify-center rounded-full hover:scale-125 duration-800 transition-all">
-                            <FaHome />
-                        </button>
-                        <button onClick={(e) => navigate('home')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center hover:bg-transparent rounded-full hover:scale-125 duration-800 transition-all">
-                            <LuPuzzle />
-                        </button>
-                        <button onClick={(e) => navigate('quiz')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:bg-transparent hover:scale-125 duration-800 transition-all">
-                            <LuLayoutDashboard />
-                        </button>
-                        <button onClick={(e) => navigate('feed')} className="bg-white hover:bg-transparent p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
-                            <VscFeedback />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <Navert />
 
 
             <div className="flex justify-center relative items-center p-4 text-white ml-10">
