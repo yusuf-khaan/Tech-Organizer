@@ -1,11 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { FaHome } from "react-icons/fa";
+import { LuPuzzle } from "react-icons/lu";
+import { VscFeedback } from "react-icons/vsc";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { NavLink, useNavigate } from "react-router-dom";
+import { BiUpvote } from "react-icons/bi";
 
 function Famchat() {
 
     const [famChat, setfamChat] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({});
+    const navigate = useNavigate();
 
     const handleComment = () => {
         try {
@@ -94,10 +101,32 @@ function Famchat() {
         <div className="relative min-h-screen h-auto w-full bg-black">
             <h1 className="text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
 
+            <div className="bg-[#F7F7F7]/10 w-[8vw] top-0 left-0 mt-5 rounded-lg ml-2 flex shadow-white items-center justify-center fixed h-[95vh]">
+                <div className="bg-black p-5 -top-2 -right-2 absolute z-10 rounded-full">
+                    <div className="bg-green-700 rounded-full p-1"></div>
+                </div>
+                <div className="bg-gradient-to-b items-center from-[#0174BE] to-[#6ea6e6] flex items-center flex-col w-[7vw] rounded-lg shadow-white p-2 fixed h-[92%]">
+                    <div className="py-[4vh]">
+                        <button onClick={(e) => navigate('/share')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                            <FaHome />
+                        </button>
+                        <button onClick={(e) => navigate('home')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                            <LuPuzzle />
+                        </button>
+                        <button onClick={(e) => navigate('quiz')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                            <LuLayoutDashboard />
+                        </button>
+                        <button onClick={(e) => navigate('feed')} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                            <VscFeedback />
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-            <div className="justify-center items-center flex p-4 text-white ">
+
+            <div className="justify-center relative items-center flex p-4 text-white ">
                 <div className="bg-[#F7F7F7]/10 h-auto flex rounded-lg p-5 min-h-[50vh] w-[80vw]">
-                    <div className="bg-[#F7F7F7]/10 min-h-[50vh] rounded-lg shadow-black shadow-sm h-full w-[80vw]">
+                    <div className="bg-[#F7F7F7]/10 min-h-[40vh] rounded-lg shadow-black shadow-sm h-full w-[80vw]">
                         <div className="h-[25px] bg-[#F7F7F7]/10 ml-3 transition-all duration-1000 rounded-lg w-[73vw]">
                             <div className="m-5 tracking-widest">
                                 {famChat ? famChat.originalposter : "Loading...."}
@@ -105,6 +134,19 @@ function Famchat() {
                         </div>
                         <h1 className="text-white py-2 px-3">{famChat ? famChat.xp : "Loading...."}</h1>
                     </div>
+
+                    <div className="absolute flex justify-between items-center bottom-[3vh] bg-[#F7F7F7]/10 w-[12%] h-[10%] rounded-full p-2">
+                        <button className="flex hover:scale-125 items-center"> {/* Group the first icon and number together */}
+                            <div className="flex items-center">
+                                <BiUpvote className="text-md" /> {/* First icon */}
+                            </div>
+                            <span className="text-sm mt-1 ml-3">0</span> {/* Number attached to the first icon */}
+                        </button>
+                        <button className="flex hover:scale-125 items-center justify-center"> {/* Second icon */}
+                            <BiUpvote className="text-md" />
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
@@ -152,7 +194,7 @@ function Famchat() {
                             alert("Please be serious")
                         }
                     }}
-                        className="bg-[#0174BE] w-[80px] h-7 rounded-[12px] hover:scale-110 shadow-md shadow-black transition-all duration-500 tracking-widest text-sm font-semibold mt-2">Submit</button>
+                        className="bg-gradient-to-b from-[#0174BE] to-[#6ea6e6] w-[80px] h-7 rounded-[12px] hover:scale-110 shadow-md shadow-black transition-all duration-500 tracking-widest text-sm font-semibold mt-2">Submit</button>
                 </div>
             </div>
         </div>
