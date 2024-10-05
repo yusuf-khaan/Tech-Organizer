@@ -1,5 +1,6 @@
 package com.p1.p1.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +84,11 @@ public class pOneController {
     public String post(@RequestBody Post post) {
         return postService.Post(post);
     } 
+
+    @RequestMapping(value ="/getpost" ,method = RequestMethod.GET)
+    public List<Post> getPost(@RequestParam Integer range) {
+        return postService.userFeed(range);
+        }
 
     @PostMapping("/comment")  
     public String comment(@RequestBody Comments comments) {

@@ -26,6 +26,12 @@ public class PostService {
         return "successfully posted";
     }
 
+    public List<Post> userFeed(Integer range) {
+        Integer limit = 10;
+        List<Post> posts = postDao.userFeed(range, limit);
+        return posts;
+    }
+
     public String Comment(Comments comment) {
         commentsDao.save(comment);
         // System.out.println(comment);

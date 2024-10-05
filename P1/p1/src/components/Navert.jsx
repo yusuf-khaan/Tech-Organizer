@@ -26,7 +26,7 @@ function Navert() {
                 <div className="bg-[url('/City.gif')] items-center flex items-center flex-col w-[8vw] rounded-[25px] shadow-white p-2 fixed h-[92%]">
                     {/* <img src="Stars.gif" alt="bg" className="w-full object-cover absolute inset-0 h-full"/> */}
                     <div className="py-[4vh]">
-                        <button value="/" onClick={(e) => handlenavigate(e)} className="bg-white p-5 mt-[8vh] opacity-100 flex hover:bg-transparent justify-center rounded-full hover:scale-125 duration-800 transition-all">
+                        <button value="/" onClick={(e) => handlenavigate(e)} className="p-5 bg-white mt-[8vh] opacity-100 flex hover:bg-transparent justify-center rounded-full hover:scale-125 duration-800 transition-all">
                             <FaHome />
                         </button>
                         <button value="/home" onClick={(e) => handlenavigate(e)} className="bg-white p-5 mt-[8vh] opacity-100 flex justify-center hover:bg-transparent rounded-full hover:scale-125 duration-800 transition-all">

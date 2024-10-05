@@ -6,14 +6,17 @@ import { VscFeedback } from "react-icons/vsc";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { BiUpvote } from "react-icons/bi";
 import Navert from "../components/Navert";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function Famchat() {
+function Famchat({post}) {
 
     const [famChat, setfamChat] = useState(null);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState({});
     // const [isCancelled, setisCancelled] = useState(false);
     // const navigate = useNavigate();
+    const location = useLocation();
+    const dataId = location.state?.data;
 
     const handleComment = () => {
         try {
@@ -49,14 +52,10 @@ function Famchat() {
                         "Content-Type": "Application/json",
                     },
                 });
-
                 const data = await response.json();
-                if(isCancelled) {
+
                 setfamChat(data);
                 setComments(data.comments);
-                // console.log(comments);
-                console.log(data);
-                }
             }
             catch (e) {
                 console.log("failed to fetch");
@@ -104,10 +103,14 @@ function Famchat() {
     //     navigate(e.target.value);
     //     // navigate();
     // }
+    const navigate = useNavigate();
+    const handleNavig = (e) => {
+    navigate(e);
+    }
 
     return (
         <div className="relative min-h-screen h-auto w-full bg-black">
-            <h1 className="text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
+            <h1 onClick ={(e)=> {handleNavig('/quiz')}} className="hover:scale-50 duration-1000 text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
 
             <Navert />
 
