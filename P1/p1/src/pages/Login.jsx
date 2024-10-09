@@ -5,9 +5,10 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 function Login() {
 
-  const [name, setname] = useState('');
-  const [pass, setpass] = useState('');
-  const [mail, setmail] = useState('');
+  // const[user,setuser] = useState(null);
+  const [name, setname] = useState('yusuf');
+  const [pass, setpass] = useState('yusuf01!');
+  const [mail, setmail] = useState('thekhanyusuf096@gmail.com');
   const [message, setmessage] = useState('');
   const [login, setlogin] = useState(true);
   const navigate = useNavigate();
@@ -78,22 +79,24 @@ function Login() {
       console.log(pass);
       console.log(mail);
       try {
+        const temp = {
+          name: name,
+          password: pass,
+          mail: mail,
+        };
+        // setuser(temp);
         const response = await fetch("https://localhost:8081/pOne/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            name: name,
-            password: pass,
-            mail: mail,
-          },)
+          body: JSON.stringify(temp)
         })
 
         const responsePromise = await response.text();
         if(responsePromise === "Successfully Authenticated"){
           setmessage(responsePromise);
-          navigate('/share');
+          navigate('/profile', {state: {user: temp}});
         }
         else {
           setmessage(responsePromise);
