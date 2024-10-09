@@ -9,6 +9,7 @@
 
 *{
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /* background-color: black; */
 };
 
 .fjalla-one-regular {
@@ -16,7 +17,6 @@
     font-weight: 400;
     font-style: normal;
   }
-  
 
 @keyframes scroll-up {
     0% {

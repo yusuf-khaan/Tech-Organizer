@@ -24,7 +24,7 @@ import com.p1.p1.pOneService.pOneService;
 import com.p1.p1.pOneService.questionService;
 
 
-@CrossOrigin(origins = "https://localhost:5173/")
+@CrossOrigin(origins = "https://localhost:5173")
 @RestController
 @RequestMapping("pOne")
 public class pOneController {
@@ -80,9 +80,9 @@ public class pOneController {
         return poneService.feedback(feedback);
     }
 
-    @RequestMapping(value = "/post" , method = RequestMethod.POST)
-    public String post(@RequestBody Post post) {
-        return postService.Post(post);
+    @RequestMapping(value = "/savepost" , method = RequestMethod.POST)
+    public String savepost(@RequestBody Post post) {
+        return postService.savepost(post);
     } 
 
     @RequestMapping(value ="/getpost" ,method = RequestMethod.GET)
@@ -95,9 +95,8 @@ public class pOneController {
         return postService.Comment(comments);
     }
 
-    @GetMapping("/testcomment")
-    public Optional<Post> response() {
-        Integer id = 1;
+    @GetMapping("/getpostbyid")
+    public Optional<Post> response(@RequestParam Integer id) {
         return postService.response(id);
     }
 

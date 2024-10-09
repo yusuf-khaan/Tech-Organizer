@@ -21,7 +21,7 @@ public class PostService {
     @Autowired
     private CommentDao commentsDao;
 
-    public String Post(Post post) {
+    public String savepost(Post post) {
         postDao.save(post);
         return "successfully posted";
     }
