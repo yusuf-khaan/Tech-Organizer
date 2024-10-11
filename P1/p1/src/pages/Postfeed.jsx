@@ -5,6 +5,7 @@ import Navert from "../components/Navert";
 
 function PostFeed() {
     const navigate = useNavigate();
+    const [newXp, setNewXp] = useState("");
     const [post, setPost] = useState([
         {
             "id": 0,
@@ -37,13 +38,13 @@ function PostFeed() {
             ]
         },                
     ]);
-    const [newXp, setNewXp] = useState("");
+    
 
     // Fetch posts on component mount
     useEffect(() => {
         const fetchUserFeed = async () => {
             try {
-                const response = await fetch("https://localhost:8081/pOne/getpost?range=25", {
+                const response = await fetch("https://localhost:8081/pOne/postfeed?range=0", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -51,7 +52,7 @@ function PostFeed() {
                 });
                 const data = await response.json();
                 console.log("Request sent");
-                console.log(data);
+                console.log(data, "this is data");
                 setPost(data);
             } catch (error) {
                 console.log("Cannot fetch post:", error);
@@ -112,6 +113,9 @@ function PostFeed() {
         setNewXp("");
     };
 
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+
     return (
         <div className="bg-black relative h-full overflow-y-auto w-full">
             <h1 onClick={() => navigate('/quiz')} className="hover:scale-50 duration-1000 text-white tracking-[0.50em] flex justify-center text-[40px]">Puzzler</h1>
@@ -122,12 +126,12 @@ function PostFeed() {
                     {post.length > 0 && post.map((item, index) => (
                         <div key={index} className="bg-[#F7F7F7]/10 px-2 py-2 mt-2 hover:scale-110 duration-500 hover:bg-[url('/khet.gif')] hover:bg-no-repeat hover:bg-cover overflow-hidden mt-5 w-full min-h-[23vh] rounded-lg h-auto">
                             <div className="h-6 rounded-full px-4 tracking-widest bg-[#F7F7F7]/15 flex justify-center items-center mt-3 w-fit">
-                                {item.originalposter}
+                                {item.post_owner}
                             </div>
                             <div className="bg-[#F7F7F7]/30 rounded-lg p-2 min-h-10 h-fit mt-[1vw] w-full">
                                 {`${item.xp} ${". . ."}`}
                             </div>
-                            <button onClick={() => viewStory(item.id)} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
+                            <button onClick={() => {console.log(item.post_id); viewStory(item.post_id)}} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
                                 View Story
                             </button>
                         </div>

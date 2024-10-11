@@ -19,16 +19,16 @@ public class pOneService {
 
     pOneModel user;
 
-    public String login(pOneModel request) {
+    public pOneModel login(pOneModel request) {
         String mail = request.getMail();
         String pass = request.getPassword();
 
         user = poneDAO.findBymail(mail);
 
         if(user != null && mail.equals(user.getMail()) && pass.equals(user.getPassword()))
-        return "Successfully Authenticated";
-        else 
-        return "Failed Authentication";
+        return user;
+        
+        return null;
     }
 
     public String signup(pOneModel request) {

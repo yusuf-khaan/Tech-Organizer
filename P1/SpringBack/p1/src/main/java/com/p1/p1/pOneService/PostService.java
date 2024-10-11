@@ -42,8 +42,12 @@ public class PostService {
         return commentsDao.findBypost_id(id);
     }
 
-    public Optional<Post> response(Integer id ){
-        return postDao.findById(id);
+    public List<Post> getuserposts(Integer id ){
+        return postDao.findByuser_id(id);
         // return postDao.findById(id).orElseThrow(() -> new RuntimeException("   "));
+    }
+
+    public Post getpostbyid(Integer id) {
+        return postDao.findById(id).orElseThrow(() -> new RuntimeException("Post Not Found"));
     }
 }

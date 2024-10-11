@@ -25,7 +25,7 @@ function Famchat() {
     const fetchPostData = async () => {
       try {
         const response = await fetch(
-          `https://localhost:8081/pOne/getpostbyid?id=${dataId}`,
+          `https://localhost:8081/pOne/getpostbyid?postid=${dataId}`,
           {
             method: "GET",
             headers: {
@@ -37,6 +37,7 @@ function Famchat() {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
+        console.log(data);
         setFamChat(data);
         setComments(data.comments || []);
       } catch (error) {
@@ -118,7 +119,7 @@ function Famchat() {
           <div className="bg-[#F7F7F7]/10 min-h-[40vh] rounded-lg px-3 shadow-black shadow-sm h-full w-full">
             <div className="h-[25px] bg-[#F7F7F7]/10 items-center shadow-black shadow-sm transition-all duration-1000 rounded-lg w-[99%]">
               <div className="m-5 tracking-widest">
-                {famChat ? famChat.originalposter : "Loading...."}
+                {famChat ? famChat.post_owner : "Loading...."}
               </div>
             </div>
             <h1 className="text-white py-3 px-3">

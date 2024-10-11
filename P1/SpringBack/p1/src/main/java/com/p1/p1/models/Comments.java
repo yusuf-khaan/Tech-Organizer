@@ -19,11 +19,17 @@ public class Comments {
     private Integer id;
 
     private String comment;
+    
+    @ManyToOne
+    // @JsonBackReference("user-comments")
+    private pOneModel user;
 
-    private String author;
+    private Integer upvote;
+
+    private Integer downvote;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
-    @JsonBackReference
+    // @JsonBackReference("post-comments")
     private Post post;
 }

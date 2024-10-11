@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.Data;
 
 @Entity
@@ -12,7 +14,7 @@ import lombok.Data;
 public class pOneModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
@@ -21,4 +23,12 @@ public class pOneModel {
     private String mail;
 
     private String password;
+
+    @OneToMany
+    // @JsonManagedReference("user-posts")
+    private List<Post> posts;
+
+    @OneToMany
+    // @JsonManagedReference("user-comments")
+    private List<Comments> comments;
 }

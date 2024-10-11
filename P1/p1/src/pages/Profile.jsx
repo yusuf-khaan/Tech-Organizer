@@ -4,83 +4,110 @@ import { useLocation } from "react-router-dom";
 
 function Profile() {
     const [swap, setswap] = useState(true);
+    const [post, setpost] = useState([]);
     const location = useLocation();
-    
-
-   
-        const data = location.state?.user; 
-        console.log(data);
-    
-    const [post, setPost] = useState([{
-        "id": 0,
-        "originalposter": "Raccoon",
-        "xp": "Got rejected from Apple, but learned a lot from the experience",
-        "comments": []
-    },
-    {
-        "id": 1,
-        "originalposter": "Kangaroo",
-        "xp": "Survived a grueling 5-hour interview at Microsoft",
-        "comments": [
-            {
-                "id": 1,
-                "comment": "damn what did you do!!!\n",
-                "author": "Panda"
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "originalposter": "Penguin",
-        "xp": "Aced a behavioral interview at Facebook",
-        "comments": [
-            {
-                "id": 2,
-                "comment": "456789",
-                "author": "Panda"
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "originalposter": "Elephant",
-        "xp": "Had a panel interview at a top consulting firm",
-        "comments": []
-    },
-    {
-        "id": 1,
-        "originalposter": "Kangaroo",
-        "xp": "Survived a grueling 5-hour interview at Microsoft",
-        "comments": [
-            {
-                "id": 1,
-                "comment": "damn what did you do!!!\n",
-                "author": "Panda"
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "originalposter": "Penguin",
-        "xp": "Aced a behavioral interview at Facebook",
-        "comments": [
-            {
-                "id": 2,
-                "comment": "456789",
-                "author": "Panda"
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "originalposter": "Elephant",
-        "xp": "Had a panel interview at a top consulting firm",
-        "comments": []
-    },
-    ]);
 
 
 
+    const data = location.state?.user;
+    console.log(data);
+
+    localStorage.setItem('user', JSON.stringify(data));
+    // const use = JSON.parse(localStorage.getItem('user'));
+    // console.log(use, "this is localstorage");
+
+    // const [post, setPost] = useState([{
+    //     "id": 0,
+    //     "originalposter": "Raccoon",
+    //     "xp": "Got rejected from Apple, but learned a lot from the experience",
+    //     "comments": []
+    // },
+    // {
+    //     "id": 1,
+    //     "originalposter": "Kangaroo",
+    //     "xp": "Survived a grueling 5-hour interview at Microsoft",
+    //     "comments": [
+    //         {
+    //             "id": 1,
+    //             "comment": "damn what did you do!!!\n",
+    //             "author": "Panda"
+    //         }
+    //     ]
+    // },
+    // {
+    //     "id": 2,
+    //     "originalposter": "Penguin",
+    //     "xp": "Aced a behavioral interview at Facebook",
+    //     "comments": [
+    //         {
+    //             "id": 2,
+    //             "comment": "456789",
+    //             "author": "Panda"
+    //         }
+    //     ]
+    // },
+    // {
+    //     "id": 3,
+    //     "originalposter": "Elephant",
+    //     "xp": "Had a panel interview at a top consulting firm",
+    //     "comments": []
+    // },
+    // {
+    //     "id": 1,
+    //     "originalposter": "Kangaroo",
+    //     "xp": "Survived a grueling 5-hour interview at Microsoft",
+    //     "comments": [
+    //         {
+    //             "id": 1,
+    //             "comment": "damn what did you do!!!\n",
+    //             "author": "Panda"
+    //         }
+    //     ]
+    // },
+    // {
+    //     "id": 2,
+    //     "originalposter": "Penguin",
+    //     "xp": "Aced a behavioral interview at Facebook",
+    //     "comments": [
+    //         {
+    //             "id": 2,
+    //             "comment": "456789",
+    //             "author": "Panda"
+    //         }
+    //     ]
+    // },
+    // {
+    //     "id": 3,
+    //     "originalposter": "Elephant",
+    //     "xp": "Had a panel interview at a top consulting firm",
+    //     "comments": []
+    // },
+    // ]);
+
+    useEffect((e) => {
+        
+            const fetchuserpost = async () => {
+                try {
+                const request = await fetch("https://localhost:8081/pOne/postmadebyuser", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        user_id: data.id,
+                    }),
+                });
+                const responsePromise = await request.json();
+                const recieved = responsePromise;
+                setpost(recieved);
+                console.log(recieved);
+            }
+        catch (e) {
+            console.log(e);
+        }
+    }
+        fetchuserpost();
+    }, []);
 
 
     return (
@@ -120,7 +147,7 @@ function Profile() {
                     {/* List of Interview XP */}
                     <div className="h-fit w-full flex flex-col items-center ml-5 rounded-xl p-5 bg-[#F7F7F7]/30">
                         <div className="bg-[#F7F7F7]/30 flex items-center justify-center rounded-full shadow-black shadow-sm w-full h-10">
-                            <h1>{swap ? "Learn From Other Experience" : "Peek Into MNC's DSA"}</h1>
+                            <h1>{swap ? "Your Past Posts" : "Your Favourite DSA Algos"}</h1>
                         </div>
 
                         <div className="bg-[#F7F7F7]/14 py-5 flex-col relative flex items-center shadow-black mt-5 shadow-lg rounded-xl min-h-[33vh] w-[97%] overflow-scroll-y">
@@ -131,7 +158,7 @@ function Profile() {
                                 post.length > 0 && post.map((item, index) => (
                                     <div key={index} className="bg-[#F7F7F7]/20 shadow-black shadow-sm px-2 py-2 mt-2 hover:scale-110 duration-500 hover:bg-[url('/khet.gif')] hover:bg-no-repeat hover:bg-cover overflow-hidden mt-5 w-[95%] min-h-[20vh] rounded-lg h-auto">
                                         <div className="h-6 rounded-full px-4 tracking-widest bg-[#F7F7F7]/15 flex justify-center items-center mt-3 w-fit">
-                                            {item.originalposter}
+                                            {data.name}
                                         </div>
                                         <div className="bg-[#F7F7F7]/30 rounded-lg p-2 min-h-10 h-fit mt-[1vw] w-full">
                                             {`${item.xp} ${". . ."}`}
