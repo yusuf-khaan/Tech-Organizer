@@ -36,7 +36,7 @@ function Famchat() {
         }
         const data = await response.json();
         setPostDetails(data);
-        console.log(data,"this is data");
+        console.log(data,"this is fetched post details from postid");
         setComments(data.comments || []);
       } catch (error) {
         console.error("Failed to fetch post data", error);
@@ -140,9 +140,9 @@ console.log(comments)
             <div className="relative flex flex-col w-[80vw] p-5 bg-[#F7F7F7]/10 rounded-lg">
               <div className="text-white flex flex-col shadow-black shadow-md p-2 rounded-lg bg-[#F7F7F7]/10">
                 <div className="bg-[#F7F7F7]/10 w-full shadow-black shadow-sm duration-1000 rounded-lg h-8 flex items-center">
-                  <h1 className="ml-2">{item.user.name}</h1>
+                  <h1 className="ml-2">{item.comment_owner}</h1>
                 </div>
-                <h1 className="mt-5">{item.comment}</h1>
+                <h1 className="mt-5">{item.comment_text}</h1>
               </div>
               <div className="flex text-white justify-start pt-[7vh]">
                 <div className="absolute flex justify-between shadow-black shadow-md h-[40px] items-center bottom-[3vh] bg-[#F7F7F7]/10 w-[12%] h-[10%] rounded-full p-2">

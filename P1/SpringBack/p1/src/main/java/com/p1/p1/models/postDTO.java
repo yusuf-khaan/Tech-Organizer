@@ -11,7 +11,7 @@ public class postDTO {
 
     private Integer post_id; //postid
     private String post_owner;//post owner name
-    private Integer logged_in_user; //the id of the user which differ from the post
+    private Integer logged_in_user; //the id of the user which differ from the post logged in user
     private String xp;//post string
     private Integer upvotes;//upvotes
     private Integer downvotes;//downvotes

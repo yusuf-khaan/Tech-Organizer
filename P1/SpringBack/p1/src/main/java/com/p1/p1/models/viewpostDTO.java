@@ -15,5 +15,5 @@ public class viewpostDTO {
     private String post_owner;
     private Integer upvote;
     private Integer downvote;
-    private List<Comments> comments;
+    private List<CommentsDTO> comments;
 }

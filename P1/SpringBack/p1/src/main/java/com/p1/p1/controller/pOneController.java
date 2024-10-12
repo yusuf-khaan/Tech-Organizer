@@ -1,6 +1,7 @@
 package com.p1.p1.controller;
 
 import com.p1.p1.models.Comments;
+import com.p1.p1.models.CommentsDTO;
 import com.p1.p1.models.Feedback;
 import com.p1.p1.models.Post;
 import com.p1.p1.models.Questions;
@@ -104,8 +105,16 @@ public class pOneController {
     @RequestMapping(value = "/getpostbyid", method = RequestMethod.GET)
     public viewpostDTO getpostbyid(@RequestParam Integer postid) {
         Post post = postService.getpostbyid(postid);
+        List<CommentsDTO> comments = new ArrayList<>();
+        List<Comments> originalComment = post.getComments();
+
+        for(Comments comms : originalComment) {
+            comments.add(new CommentsDTO(comms.getId(),comms.getUser().getName(), comms.getComment()));
+        }
+
+
         viewpostDTO viewpost = new viewpostDTO(post.getId(), post.getXp(), post.getUser().getName(), post.getUpvote(),
-        post.getDownvote(), post.getComments());
+        post.getDownvote(), comments);
         return viewpost;
     }
 

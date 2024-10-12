@@ -64,6 +64,7 @@ function PostFeed() {
     // View story navigation
     const viewStory = (id) => {
         navigate(`/fam/${id}`);
+
     };
 
     // Save a new post
