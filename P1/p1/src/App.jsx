@@ -18,7 +18,7 @@ function App() {
         <Route path='/share' element ={<Share/>} /> 
         <Route path='/feed' element={<Feedback />} />
         <Route path='/quiz' element={<Quiz />} />
-        <Route path='/fam' element={<Famchat />} />
+        <Route path='/fam/:postid' element={<Famchat />} />
         <Route path='/posts' element={<Postfeed />} />
         <Route path='/profile' element={<Profile/>} />
       </Routes>

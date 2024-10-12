@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { FaHome } from "react-icons/fa";
-import { LuPuzzle } from "react-icons/lu";
+import { LuPuzzle, LuLayoutDashboard } from "react-icons/lu";
 import { VscFeedback } from "react-icons/vsc";
-import { LuLayoutDashboard } from "react-icons/lu";
 import { BiUpvote } from "react-icons/bi";
 import Navert from "../components/Navert";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function Famchat() {
-  const [famChat, setFamChat] = useState(null);
+  const [postDetails, setPostDetails] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
-  const dataId = location.state?.data;
+  // const postId = location.state?.data;
+  const userDetails = JSON.parse(localStorage.getItem("user"));
+
+  const {postid} = useParams();
 
   // Fetch post data
   useEffect(() => {
-    if (!dataId) {
-      console.error("Data ID is undefined, cannot fetch post data.");
-      return; // Stop if dataId is undefined
-    }
 
     const fetchPostData = async () => {
       try {
         const response = await fetch(
-          `https://localhost:8081/pOne/getpostbyid?postid=${dataId}`,
+          `https://localhost:8081/pOne/getpostbyid?postid=${postid}`,
           {
             method: "GET",
             headers: {
@@ -37,8 +35,8 @@ function Famchat() {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
-        setFamChat(data);
+        setPostDetails(data);
+        console.log(data,"this is data");
         setComments(data.comments || []);
       } catch (error) {
         console.error("Failed to fetch post data", error);
@@ -46,50 +44,41 @@ function Famchat() {
     };
 
     fetchPostData();
-  }, [dataId]);
+  }, [postid]);
 
   // Handle adding a new comment
-  const handleComment = async () => {
+  const handleCommentSubmission = async () => {
     if (newComment.trim().length < 5) {
       alert("Please provide a valid comment with more than 5 characters.");
       return;
     }
 
-    const newCommObject = {
-      id: comments.length + 1,
+    const newCommentObject = {
       comment: newComment,
-      author: "Panda",
+      user: { id: userDetails.id,  name: userDetails.name },
+
+      post: { id: postDetails.post_id },
     };
 
     try {
-      setComments([...comments, newCommObject]);
-      setFamChat((prev) => ({
-        ...prev,
-        comments: [...(prev.comments || []), newCommObject],
-      }));
-
       // Update database with the new comment
-      await updateCommentDBS(newCommObject);
-      setNewComment(""); // Clear the input field after successful comment submission
+      await addCommentToDatabase(newCommentObject);
+      setComments([...comments, newCommentObject]);
+      setNewComment(""); // Clear the input field after successful submission
     } catch (error) {
       console.error("Error while adding comment:", error);
     }
   };
 
   // Update comments in the backend database
-  const updateCommentDBS = async (comment) => {
+  const addCommentToDatabase = async (comment) => {
     try {
       const response = await fetch("https://localhost:8081/pOne/comment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          id: comment.id,
-          author: comment.author,
-          comment: comment.comment,
-          post: famChat,
-        }),
+        body: JSON.stringify(comment),
       });
       if (!response.ok) {
         throw new Error("Failed to update comment in the database");
@@ -99,14 +88,19 @@ function Famchat() {
     }
   };
 
-  const handleNavigation = (path) => {
+  const navigateTo = (path) => {
     navigate(path);
   };
+
+  useEffect((e)=> {
+// console.log(comments);
+console.log(comments)
+  }, [comments])
 
   return (
     <div className="bg-black absolute h-full overflow-y-auto w-full">
       <h1
-        onClick={() => handleNavigation("/quiz")}
+        onClick={() => navigateTo("/quiz")}
         className="hover:scale-50 duration-1000 text-white tracking-[0.50em] flex justify-center text-[40px]"
       >
         Puzzler
@@ -119,11 +113,11 @@ function Famchat() {
           <div className="bg-[#F7F7F7]/10 min-h-[40vh] rounded-lg px-3 shadow-black shadow-sm h-full w-full">
             <div className="h-[25px] bg-[#F7F7F7]/10 items-center shadow-black shadow-sm transition-all duration-1000 rounded-lg w-[99%]">
               <div className="m-5 tracking-widest">
-                {famChat ? famChat.post_owner : "Loading...."}
+                {postDetails ? postDetails.post_owner : "Loading..."}
               </div>
             </div>
             <h1 className="text-white py-3 px-3">
-              {famChat ? famChat.xp : "Loading...."}
+              {postDetails ? postDetails.xp : "Loading..."}
             </h1>
           </div>
 
@@ -146,7 +140,7 @@ function Famchat() {
             <div className="relative flex flex-col w-[80vw] p-5 bg-[#F7F7F7]/10 rounded-lg">
               <div className="text-white flex flex-col shadow-black shadow-md p-2 rounded-lg bg-[#F7F7F7]/10">
                 <div className="bg-[#F7F7F7]/10 w-full shadow-black shadow-sm duration-1000 rounded-lg h-8 flex items-center">
-                  <h1 className="ml-2">{item.author}</h1>
+                  <h1 className="ml-2">{item.user.name}</h1>
                 </div>
                 <h1 className="mt-5">{item.comment}</h1>
               </div>
@@ -177,7 +171,7 @@ function Famchat() {
             placeholder="Insert new comment!...."
           />
           <button
-            onClick={handleComment}
+            onClick={handleCommentSubmission}
             className="bg-gradient-to-b from-[#0174BE] to-[#6ea6e6] w-[80px] h-7 rounded-[12px] hover:scale-110 shadow-md shadow-black transition-all duration-500 tracking-widest text-sm font-semibold mt-2"
           >
             Submit
