@@ -69,14 +69,14 @@ function Quiz() {
     const text = "Question of the day!";
     const QOTD = "Given an unsorted array of integers, sort the array into a wave array. An array arr[0..n-1] is sorted in wave form if: arr[0] >= arr[1] <= arr[2] >= arr[3] <= arr[4] >= . . .";
     return (
-        <div className="bg-black h-screen w-screen relative container">
+        <div className="bg-black h-screen w-screen relative">
             <h1 className="text-white flex justify-center text-[50px] ml-[11.5%] tracking-[.40em] pt-[5px]">Puzzler</h1>
             <Navert />
 
             <div className="w-[88vw] h-[85vh] bg-slate-900/25 rounded-[50px] overflow-hidden flex flex-col ml-[11vw] container">
 
                 <div className="flex grow flex-col  justify-center items-center">
-                    <div className="w-[79vw] flex flex-col shadow-black shadow-lg items-center h-[100px] hover:bg-transparent hover:scale-110 transition-all duration-1000 mt-5 bg-[#F7F7F7]/10 rounded-[50px] text-white p-4">
+                    <div className="w-[79vw] overflow-hidden flex flex-col shadow-black shadow-lg items-center h-[100px] hover:bg-transparent hover:scale-110 transition-all duration-1000 mt-5 bg-[#F7F7F7]/10 rounded-[50px] text-white p-4">
                         <pre>{text}</pre>
                         <p className="mt-2 px-3"> {QOTD}</p>
                     </div>
@@ -105,7 +105,7 @@ function Quiz() {
 
 
                     <div className="bg-[#F7F7F7]/10 shadow-black shadow-lg font-semibold text-white tracking-widest hover:scale-105 duration-1000 transition-all hover:bg-transparent h-[42vh] p-5 w-[29vw] ml-5 rounded-[20px]">
-                        <button><h1>
+                        <button className="overflow-hidden"><h1>
                             Worried About MAANG or FANG Tech Rounds?<br /> No Worries! Check Out Our Catalogue of 100+ Questions to Ace Your Interviews!
                         </h1>
                             <h1 className="text-[140px] -mt-6">
