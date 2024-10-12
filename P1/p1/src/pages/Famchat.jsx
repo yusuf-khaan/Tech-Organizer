@@ -44,7 +44,7 @@ function Famchat() {
     };
 
     fetchPostData();
-  }, [postid]);
+  }, []);
 
   // Handle adding a new comment
   const handleCommentSubmission = async () => {
@@ -59,11 +59,18 @@ function Famchat() {
 
       post: { id: postDetails.post_id },
     };
+    console.log("this is newcommobject", newCommentObject);
 
     try {
+
       // Update database with the new comment
       await addCommentToDatabase(newCommentObject);
-      setComments([...comments, newCommentObject]);
+      
+      setComments((prev) => [...prev, {
+        comment_owner: userDetails.name,
+        comment_text: newComment,
+      }]);
+      
       setNewComment(""); // Clear the input field after successful submission
     } catch (error) {
       console.error("Error while adding comment:", error);
@@ -91,11 +98,6 @@ function Famchat() {
   const navigateTo = (path) => {
     navigate(path);
   };
-
-  useEffect((e)=> {
-// console.log(comments);
-console.log(comments)
-  }, [comments])
 
   return (
     <div className="bg-black absolute h-full overflow-y-auto w-full">

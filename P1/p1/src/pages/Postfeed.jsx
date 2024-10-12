@@ -36,9 +36,11 @@ function PostFeed() {
                     "author": "Panda"
                 }
             ]
-        },                
+        },
     ]);
-    
+
+    const userDetails = JSON.parse(localStorage.getItem('user'));
+    console.log(userDetails);
 
     // Fetch posts on component mount
     useEffect(() => {
@@ -94,28 +96,36 @@ function PostFeed() {
         }
 
         const newPost = {
-            originalposter: "Water",
+            user: {
+                id: userDetails.id,
+            },
             xp: newXp,
-            comments: [],
         };
 
-        // Update post state
-        setPost((prev) => [newPost, ...prev]);
+
 
         // Save to database
         const success = await savePost(newPost);
+
         if (success) {
+            // Update post state
+            setPost((prev) => [{
+                post_owner: userDetails.name,
+                xp: newXp,
+            }, ...prev]); // Add the new post to the beginning of the list
+            setNewXp(""); // Clear the input field
             console.log("Post added successfully");
         } else {
-            alert("Failed while saving post");
+            console.error("Failed while saving post"); // Log the error
+            alert("Failed while saving post"); // Alert user
         }
 
+
         // Clear the input after adding
-        setNewXp("");
+
     };
 
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
+
 
     return (
         <div className="bg-black relative h-full overflow-y-auto w-full">
@@ -132,7 +142,7 @@ function PostFeed() {
                             <div className="bg-[#F7F7F7]/30 rounded-lg p-2 min-h-10 h-fit mt-[1vw] w-full">
                                 {`${item.xp} ${". . ."}`}
                             </div>
-                            <button onClick={() => {console.log(item.post_id); viewStory(item.post_id)}} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
+                            <button onClick={() => { console.log(item.post_id); viewStory(item.post_id) }} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
                                 View Story
                             </button>
                         </div>
