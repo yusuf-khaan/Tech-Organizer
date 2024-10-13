@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 function Profile() {
     const [swap, setswap] = useState(true);
     const [post, setpost] = useState([]);
+    const [booked, setbooked] = useState([]);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -13,6 +14,9 @@ function Profile() {
     console.log(data);
 
     localStorage.setItem('user', JSON.stringify(data));
+
+    const userDetails = JSON.parse(localStorage.getItem('user'));
+    console.log(userDetails, " this is userDetails")
 
     useEffect((e) => {
 
@@ -38,6 +42,26 @@ function Profile() {
         }
         fetchuserpost();
     }, []);
+
+    useEffect(() => {
+        const fetchbookmarkedpost = async () => {
+            try {
+                const response = await fetch("https://localhost:8081/pOne/getbookmarkedpost", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userDetails.id),
+                })
+                const recieved = await response.json();
+                setbooked(recieved);
+                console.log(booked, "this is json recieved");
+            } catch (error) {
+                alert("issue cause while retrieving booked post");
+            }
+        }
+        fetchbookmarkedpost();
+    }, [])
 
     //if i want a absolute path and dont want to construct navigate like profile/fam/1
     // then we use / before fam like below and if i dont like 
@@ -84,7 +108,7 @@ function Profile() {
                     {/* List of Interview XP */}
                     <div className="h-fit w-full flex flex-col items-center ml-5 rounded-xl p-5 bg-[#F7F7F7]/30">
                         <div className="bg-[#F7F7F7]/30 flex items-center justify-center rounded-full shadow-black shadow-sm w-full h-10">
-                            <h1>{swap ? "Your Past Posts" : "Your Favourite XP Posts"}</h1>
+                            <h1>{swap ? "Your Past Posts" : "Your Bookmarked Posts"}</h1>
                         </div>
 
                         <div className="bg-[#F7F7F7]/14 py-5 flex-col relative flex items-center shadow-black mt-5 shadow-lg rounded-xl min-h-[33vh] w-[97%] overflow-scroll-y">
@@ -111,20 +135,20 @@ function Profile() {
                                     </div>
                                 ))
                             ) : (
-                                post.length > 0 && post.map((item, index) => (
+                                booked.length > 0 && booked.map((item, index) => (
                                     <div key={index} className="bg-[#F7F7F7]/20 shadow-black shadow-sm px-2 py-2 mt-2 hover:scale-110 duration-500 hover:bg-[url('/khet.gif')] hover:bg-no-repeat hover:bg-cover overflow-hidden mt-5 w-[95%] min-h-[20vh] rounded-lg h-auto">
                                         <div className="flex flex-wrap">
                                             <div className="h-6 rounded-full px-4 tracking-widest bg-[#F7F7F7]/15 flex justify-center items-center mt-3 w-fit">
-                                                {item.name}
+                                                {item.post_owner}
                                             </div>
                                             <div className="rounded-full mt-3 ml-4 bg-[#F7F7F7]/15 h-6 px-4 w-fit">
                                                 {`Company Name`}
                                             </div>
                                         </div>
                                         <div className="bg-[#F7F7F7]/30 rounded-lg p-2 min-h-10 h-fit mt-[1vw] w-full">
-                                            {`${"others xp which are bookmarked by me"} ${"na"}`}
+                                            {`${item.xp} ${"na"}`}
                                         </div>
-                                        <button className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
+                                        <button onClick={(e) => {viewpost(item.post_id)}} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
                                             View Question
                                         </button>
                                     </div>

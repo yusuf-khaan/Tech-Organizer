@@ -2,7 +2,6 @@ package com.p1.p1.controller;
 
 import com.p1.p1.DAO.BookmarksDAO;
 import com.p1.p1.models.BookmarkedPost;
-import com.p1.p1.models.BookmarkedPostsDTO;
 import com.p1.p1.models.Comments;
 import com.p1.p1.models.CommentsDTO;
 import com.p1.p1.models.Feedback;
@@ -54,6 +53,7 @@ public class pOneController {
         // System.out.println(request.getMail());
         // System.out.println(request.getPassword());
         pOneModel userOrg = poneService.login(request);
+        System.out.println(request);
         if (userOrg != null) {
             userDTO user = new userDTO(userOrg.getId(), userOrg.getName(), userOrg.getMail());
             return user;
@@ -99,6 +99,17 @@ public class pOneController {
     @PostMapping("/savebookmark")
     public String savebookmark(@RequestBody BookmarkedPost bookmarkedPosts) {
        return bookmarkservice.savingBookmark(bookmarkedPosts);
+    }
+
+    @PostMapping("/getbookmarkedpost")
+    public List<postDTO> getbookmarkedpost(@RequestBody Integer user_id) {
+        List<BookmarkedPost> bookmarkedpost = bookmarkservice.getbBookmarkedPost(user_id);
+        List<postDTO> posts = new ArrayList<>();
+        for(BookmarkedPost post : bookmarkedpost) {
+            postDTO temp = new postDTO(post.getPost().getId(), post.getPost().getUser().getName(), post.getUser().getId(), post.getPost().getXp(), post.getPost().getUpvote(), post.getPost().getDownvote());
+            posts.add(temp);
+        }
+        return posts;
     }
 
     // created DTO for the feed where various post will be shown

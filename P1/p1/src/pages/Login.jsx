@@ -31,6 +31,7 @@ function Login() {
 
     try {
       const temp = { name: name, password: pass, mail: mail };
+      console.log(temp)
       const response = await fetch("https://localhost:8081/pOne/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

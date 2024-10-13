@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import java.util.Set;
 import lombok.Data;
 
 @Entity
@@ -21,8 +22,10 @@ public class pOneModel {
     private String name;
 
     @Column(unique=true)
+    // @JsonIgnore
     private String mail;
 
+    // @JsonIgnore
     private String password;
 
     @OneToMany
@@ -35,6 +38,6 @@ public class pOneModel {
 
     @OneToMany
     @JsonIgnore
-    private List<BookmarkedPost> bookmarked_post_by_user;
+    private Set<BookmarkedPost> bookmarked_post_by_user;
     
 }

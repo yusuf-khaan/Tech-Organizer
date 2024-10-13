@@ -105,7 +105,7 @@ function Famchat() {
     try {
       const bookmarked_post = {
         user: {
-          id: userDetails.id,
+          id: userDetails.id
         },
         post: {
           id: postDetails.post_id,
@@ -120,9 +120,8 @@ function Famchat() {
         },
         body: JSON.stringify(bookmarked_post),
       });
-      const bookmarking_status = await response.json();
+      const bookmarking_status = await response.text();
       console.log(bookmarking_status);
-
     }
     catch (e) {
       console.log("error occured while saving post");

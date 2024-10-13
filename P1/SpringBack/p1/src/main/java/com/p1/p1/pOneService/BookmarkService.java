@@ -1,5 +1,7 @@
 package com.p1.p1.pOneService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,10 @@ public class BookmarkService {
         } catch (Exception e) {
             return "error while saving bookmark";
         }
+    }
+
+    public List<BookmarkedPost> getbBookmarkedPost(Integer user_id) {
+        return bookmarkRepository.findAllByuser_id(user_id);
+        // return bookmarkRepository.findById(user_id);
     }
 }
