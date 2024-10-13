@@ -7,7 +7,7 @@ import Feedback from './pages/Feedback';
 import Quiz from './pages/Quiz';
 import Famchat from './pages/Famchat';
 import Postfeed from './pages/Postfeed';
-import Profile from './pages/profile';
+import Profile from './pages/Profile';
 
 function App() {
   return (

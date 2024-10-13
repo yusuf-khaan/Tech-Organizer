@@ -1,5 +1,6 @@
 package com.p1.p1.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,4 +32,9 @@ public class pOneModel {
     @OneToMany
     // @JsonManagedReference("user-comments")
     private List<Comments> comments;
+
+    @OneToMany
+    @JsonIgnore
+    private List<BookmarkedPost> bookmarked_post_by_user;
+    
 }

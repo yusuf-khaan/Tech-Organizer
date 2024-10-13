@@ -27,7 +27,7 @@ public class PostService {
     }
 
     public List<Post> userFeed(Integer range) {
-        Integer limit = 10;
+        Integer limit = 50;
         List<Post> posts = postDao.userFeed(range, limit);
         return posts;
     }

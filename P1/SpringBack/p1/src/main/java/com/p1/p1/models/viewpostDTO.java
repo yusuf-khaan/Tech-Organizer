@@ -17,3 +17,4 @@ public class viewpostDTO {
     private Integer downvote;
     private List<CommentsDTO> comments;
 }
+//it is for user feed like insta feed full of random post

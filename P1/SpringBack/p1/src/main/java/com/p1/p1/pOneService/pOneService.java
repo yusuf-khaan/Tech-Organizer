@@ -1,12 +1,11 @@
 package com.p1.p1.pOneService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.p1.p1.DAO.FeedbackDAO;
 import com.p1.p1.DAO.pOne;
 import com.p1.p1.models.Feedback;
 import com.p1.p1.models.pOneModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class pOneService {
@@ -32,7 +31,7 @@ public class pOneService {
     }
 
     public String signup(pOneModel request) {
-        pOneModel user = poneDAO.findBymail(request.getMail());
+        user = poneDAO.findBymail(request.getMail());
         if(user != null) return "User Exist Already, Please Login Using Your Details";
         try {
         poneDAO.save(request);

@@ -15,7 +15,7 @@ function Famchat() {
   // const postId = location.state?.data;
   const userDetails = JSON.parse(localStorage.getItem("user"));
 
-  const {postid} = useParams();
+  const { postid } = useParams();
 
   // Fetch post data
   useEffect(() => {
@@ -36,7 +36,7 @@ function Famchat() {
         }
         const data = await response.json();
         setPostDetails(data);
-        console.log(data,"this is fetched post details from postid");
+        console.log(data, "this is fetched post details from postid");
         setComments(data.comments || []);
       } catch (error) {
         console.error("Failed to fetch post data", error);
@@ -55,7 +55,7 @@ function Famchat() {
 
     const newCommentObject = {
       comment: newComment,
-      user: { id: userDetails.id,  name: userDetails.name },
+      user: { id: userDetails.id, name: userDetails.name },
 
       post: { id: postDetails.post_id },
     };
@@ -65,12 +65,12 @@ function Famchat() {
 
       // Update database with the new comment
       await addCommentToDatabase(newCommentObject);
-      
+
       setComments((prev) => [...prev, {
         comment_owner: userDetails.name,
         comment_text: newComment,
       }]);
-      
+
       setNewComment(""); // Clear the input field after successful submission
     } catch (error) {
       console.error("Error while adding comment:", error);
@@ -99,6 +99,36 @@ function Famchat() {
     navigate(path);
   };
 
+  const bookmarkpost = async () => {
+
+
+    try {
+      const bookmarked_post = {
+        user: {
+          id: userDetails.id,
+        },
+        post: {
+          id: postDetails.post_id,
+        }
+      }
+
+      console.log(bookmarked_post);
+      const response = await fetch("https://localhost:8081/pOne/savebookmark", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookmarked_post),
+      });
+      const bookmarking_status = await response.json();
+      console.log(bookmarking_status);
+
+    }
+    catch (e) {
+      console.log("error occured while saving post");
+    }
+  };
+
   return (
     <div className="bg-black absolute h-full overflow-y-auto w-full">
       <h1
@@ -113,10 +143,14 @@ function Famchat() {
       <div className="flex justify-center relative items-center p-4 text-white ml-10">
         <div className="bg-[#F7F7F7]/10 flex flex-col rounded-lg p-5 min-h-[50vh] w-[80vw]">
           <div className="bg-[#F7F7F7]/10 min-h-[40vh] rounded-lg px-3 shadow-black shadow-sm h-full w-full">
-            <div className="h-[25px] bg-[#F7F7F7]/10 items-center shadow-black shadow-sm transition-all duration-1000 rounded-lg w-[99%]">
+            <div className="flex mt-2 justify-between h-[25px] bg-[#F7F7F7]/10 items-center shadow-black shadow-sm transition-all duration-1000 rounded-xl w-[99%]">
+
               <div className="m-5 tracking-widest">
                 {postDetails ? postDetails.post_owner : "Loading..."}
               </div>
+              <button onClick={bookmarkpost} className="hover:scale-150 duration-1000 bg-green-500 p-1 -translate-x-[1vw] rounded-full">
+
+              </button>
             </div>
             <h1 className="text-white py-3 px-3">
               {postDetails ? postDetails.xp : "Loading..."}

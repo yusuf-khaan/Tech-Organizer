@@ -38,4 +38,8 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade=CascadeType.ALL, orphanRemoval = true)
     // @JsonManagedReference("post-comments")
     private List<Comments> comments;
+
+    @JsonIgnore
+    @OneToMany
+    private List<BookmarkedPost> bookmarked;
 }

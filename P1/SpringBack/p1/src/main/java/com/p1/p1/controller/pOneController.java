@@ -1,5 +1,8 @@
 package com.p1.p1.controller;
 
+import com.p1.p1.DAO.BookmarksDAO;
+import com.p1.p1.models.BookmarkedPost;
+import com.p1.p1.models.BookmarkedPostsDTO;
 import com.p1.p1.models.Comments;
 import com.p1.p1.models.CommentsDTO;
 import com.p1.p1.models.Feedback;
@@ -10,6 +13,7 @@ import com.p1.p1.models.pOneModel;
 import com.p1.p1.models.postDTO;
 import com.p1.p1.models.userDTO;
 import com.p1.p1.models.viewpostDTO;
+import com.p1.p1.pOneService.BookmarkService;
 import com.p1.p1.pOneService.PostService;
 import com.p1.p1.pOneService.pOneService;
 import com.p1.p1.pOneService.questionService;
@@ -41,6 +45,9 @@ public class pOneController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private BookmarkService bookmarkservice;
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public userDTO login(@RequestBody pOneModel request) {
@@ -89,6 +96,11 @@ public class pOneController {
         return postService.savepost(post);
     }
 
+    @PostMapping("/savebookmark")
+    public String savebookmark(@RequestBody BookmarkedPost bookmarkedPosts) {
+       return bookmarkservice.savingBookmark(bookmarkedPosts);
+    }
+
     // created DTO for the feed where various post will be shown
     @RequestMapping(value = "/postfeed", method = RequestMethod.GET)
     public List<postDTO> postfeed(@RequestParam Integer range) {
@@ -108,13 +120,12 @@ public class pOneController {
         List<CommentsDTO> comments = new ArrayList<>();
         List<Comments> originalComment = post.getComments();
 
-        for(Comments comms : originalComment) {
-            comments.add(new CommentsDTO(comms.getId(),comms.getUser().getName(), comms.getComment()));
+        for (Comments comms : originalComment) {
+            comments.add(new CommentsDTO(comms.getId(), comms.getUser().getName(), comms.getComment()));
         }
 
-
         viewpostDTO viewpost = new viewpostDTO(post.getId(), post.getXp(), post.getUser().getName(), post.getUpvote(),
-        post.getDownvote(), comments);
+                post.getDownvote(), comments);
         return viewpost;
     }
 
@@ -130,7 +141,8 @@ public class pOneController {
         List<Post> posts = postService.getuserposts(id);
         List<UserpostDTO> userposts = new ArrayList<>();
         for (Post post : posts) {
-            UserpostDTO userpost = new UserpostDTO(post.getId(), post.getXp(), post.getUpvote(), post.getDownvote());
+            UserpostDTO userpost = new UserpostDTO(post.getId(), post.getUser().getName(), post.getXp(),
+                    post.getUpvote(), post.getDownvote());
             userposts.add(userpost);
         }
         return userposts;

@@ -7,11 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class userDTO {
+public class BookmarkedPostsDTO {
 
-    private Integer id;
-    private String name;
-    private String mail;
+    private Integer bookmarked_post_id;
+    private Integer bookmarking_user_id; //user who has bookmarked the post
 }
-
-//data sent after login login detail is wat these are
