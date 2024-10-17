@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Navert from "../components/Navert";
 import { useLocation, useNavigate } from "react-router-dom";
+import { HiHome } from "react-icons/hi2";
+import { SiGitbook } from "react-icons/si";
+import { FaUser } from "react-icons/fa6";
+import { RiFeedbackLine } from "react-icons/ri";
+import { FaBookBookmark } from "react-icons/fa6";
+import { RiFireFill } from "react-icons/ri";
 
 function Profile() {
     const [swap, setswap] = useState(true);
@@ -14,8 +20,8 @@ function Profile() {
     console.log(data);
 
     localStorage.setItem('user', JSON.stringify(data));
-
     const userDetails = JSON.parse(localStorage.getItem('user'));
+
     console.log(userDetails, " this is userDetails")
 
     useEffect((e) => {
@@ -75,14 +81,32 @@ function Profile() {
         <div className="bg-black min-h-screen p-5 h-auto w-full relative">
             <Navert />
             {/* Frosted Glass Effect */}
-            {/* <div className="justify-center items-center mt-10 ml-[10vw] flex">
-            <div className="fixed z-[9999] rounded-full h-[8vh] w-[80%] overflow-hidden">
-                <div className="absolute inset-0 bg-white/30 backdrop-blur-xl rounded-full"></div>
-                <div className="relative bg-transparent h-full w-full rounded-full">
-                  
+            <div className="justify-center items-center  mt-10 ml-[10vw] flex">
+                <div className="fixed z-[9999] rounded-full h-[8vh] w-[80%] overflow-hidden">
+                    <div className="absolute inset-0 bg-white/50 backdrop-blur-xl rounded-full">
+                    </div>
+                    <div className="relative bg-transparent h-full w-full rounded-full">
+                        <div className="p-5 flex items-center gap-[8vw] justify-center">
+                            <button className="text-[1.4vw] hover:scale-150">
+                                <HiHome />
+                            </button>
+                            <button className="text-[1.4vw] hover:scale-150">
+                                <SiGitbook />
+                            </button>
+                            <button className="text-[1.4vw] hover:scale-150">
+                                <FaUser />
+                            </button>
+                            <button className="text-[1.4vw] hover:scale-150">
+                                <RiFeedbackLine />
+                            </button>
+                            <button className="text-[1.4vw] hover:scale-150">
+                                <FaBookBookmark />
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            </div> */}
 
             {/* Main Content */}
             <div className="flex mt-[6vh] p-5 justify-center ml-[10vw]">
@@ -99,6 +123,14 @@ function Profile() {
                         <div className="mt-4 w-full h-[15vh] rounded-xl shadow-black shadow-md p-2 flex items-center justify-center bg-[#F7F7F7]/30">
                             <h1 className="font-bold tracking-widest mt-[11vh]">Karma</h1>
                         </div>
+                        <button className="mt-4 w-full h-[8vh] rounded-xl shadow-black shadow-md p-2 flex bg-[#F7F7F7]/30">
+                        <RiFireFill className=" mt-3 text-[#FF6500] text-[30px]"/>
+                        <h1 className="mt-5 px-3">
+                            Did You Check Out Today POTD !
+                        </h1>
+                        </button>
+                        
+
                         <div className="mt-4 w-full h-[15vh] rounded-xl p-2 flex flex-col shadow-black shadow-md bg-[#F7F7F7]/30">
                             <h1 className="font-bold tracking-widest pt-3 text-sm">{`Mail:- ${data.mail}`}</h1>
                             <h1 className="font-bold tracking-widest pt-3 text-sm">{`Password :- ${data.password}`}</h1>
@@ -148,7 +180,7 @@ function Profile() {
                                         <div className="bg-[#F7F7F7]/30 rounded-lg p-2 min-h-10 h-fit mt-[1vw] w-full">
                                             {`${item.xp} ${"na"}`}
                                         </div>
-                                        <button onClick={(e) => {viewpost(item.post_id)}} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
+                                        <button onClick={(e) => { viewpost(item.post_id) }} className="bg-[#F7F7F7]/30 hover:scale-110 duration-500 flex items-center justify-center rounded-full h-7 w-[12vw] mt-4">
                                             View Question
                                         </button>
                                     </div>

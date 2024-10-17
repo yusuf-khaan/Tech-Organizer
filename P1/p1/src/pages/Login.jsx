@@ -43,6 +43,7 @@ function Login() {
 
       if (response.ok) {
         setMessage(responseText);
+        // localStorage.setItem('user', JSON.stringify(responseText)); 
         navigate("/profile", { state: { user: responseText } });
       } else {
         setMessage(responseText || "Invalid Credentials");

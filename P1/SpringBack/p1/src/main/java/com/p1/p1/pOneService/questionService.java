@@ -34,7 +34,7 @@ public class questionService {
     public void processPdf(String pdfPath) throws Exception {
         // Step 1: Extract text from PDF
         String questionsText = extractTextFromPDF(pdfPath);
-        System.out.println(questionsText);
+        // System.out.println(questionsText);
 
         // Step 2: Process the questions and options
         processAndSaveQuestions(questionsText);
@@ -62,23 +62,23 @@ public class questionService {
         for (String questionBlock : questionBlocks) {
             String questionText = questionBlock.trim();
 
-            System.out.println(questionText);
-            System.out.println("this is question block");
+            // System.out.println(questionText);
+            // System.out.println("this is question block");
             
 
             // Extract options using regex
             Matcher matcher = optionsPattern.matcher(questionText);
             String optionA = "", optionB = "", optionC = "", optionD = "";
-            System.out.println(optionA);
-            System.out.println("this is option A");
+            // System.out.println(optionA);
+            // System.out.println("this is option A");
 
-            System.out.println(optionB);
-            System.out.println("optionB");
+            // System.out.println(optionB);
+            // System.out.println("optionB");
 
-            System.out.println(optionC);
-            System.out.println("optionC");
+            // System.out.println(optionC);
+            // System.out.println("optionC");
 
-            System.out.println(optionD);
+            // System.out.println(optionD);
 
             if (matcher.find()) {
                 optionA = matcher.group(1) != null ? matcher.group(2).trim() : "";
@@ -136,7 +136,7 @@ public class questionService {
             try {
             List<Questions> questions = new ArrayList<>();
             questions = questionRepository.generateQuestions(category, numbers);
-            System.out.println(questions);
+            // System.out.println(questions);
             return questions;
             }
             catch(Exception e) {

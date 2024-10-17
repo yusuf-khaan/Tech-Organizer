@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Famchat from "./Famchat";
 import Navert from "../components/Navert";
+import Topnav from "../components/Topnav";
 
 function PostFeed() {
     const navigate = useNavigate();
@@ -67,13 +68,14 @@ function PostFeed() {
         <div className="bg-black relative h-full overflow-y-auto w-full">
             <h1 
                 onClick={() => navigate('/quiz')} 
-                className="hover:scale-50 duration-1000 text-white tracking-[0.50em] flex justify-center text-[40px]"
+                className="mt-5 text-white tracking-[0.50em] flex justify-center"
             >
-                Puzzler
+                <Topnav />
             </h1>
+            
             <Navert />
 
-            <div className="flex h-full p-5 w-full items-center flex-col justify-center">
+            <div className="flex h-full mt-10 p-5 w-full items-center flex-col justify-center">
                 <div className="bg-[#F7F7F7]/10 w-[70vw] p-2 flex flex-col rounded-lg h-fit">
                     {posts.length > 0 ? (
                         posts.map((item, index) => (
@@ -83,9 +85,15 @@ function PostFeed() {
                                 hover:bg-[url('/khet.gif')] hover:bg-no-repeat hover:bg-cover overflow-hidden mt-5 
                                 w-full min-h-[23vh] rounded-lg h-auto"
                             >
+                                <div className="flex flex-wrap">
                                 <div className="h-6 rounded-full px-4 tracking-widest bg-[#F7F7F7]/15 flex justify-center items-center mt-3 w-fit">
                                     {item.post_owner}
                                 </div>
+                                <div className="h-6 rounded-full ml-5 px-4 tracking-widest bg-[#F7F7F7]/15 flex justify-center items-center mt-3 w-fit">
+                                    {'Company Name'}
+                                </div>
+                                </div>
+
                                 <div className="bg-[#F7F7F7]/30 rounded-lg p-2 min-h-10 h-fit mt-[1vw] w-full">
                                     {`${item.xp} . . .`}
                                 </div>

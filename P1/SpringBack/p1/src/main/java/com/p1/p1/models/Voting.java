@@ -8,34 +8,33 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "bookmarked_post", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"user_id","post_id"})
+@Entity
+@Table(name = "voting", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"user_id", "post_id"})
 })
-@ToString(exclude = {"post","user"})
-public class BookmarkedPost {
+@ToString(exclude = {"user", "post"}) // Exclude to prevent recursion
+public class Voting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @NotNull
-    @JsonBackReference("user-bookmark")
-    private pOneModel user; //user who bookmark the post
+    @JsonBackReference("user-votes")
+    private pOneModel user;
 
     @ManyToOne
-    @NotNull
-    @JsonBackReference("post-bookmark")
-    private Post post; // this is the bookmarked post
+    @JsonBackReference("post-votes")
+    private Post post;
 
+    private Boolean vote; // true for upvote and false for downvote and null for no vote
+    //Boolean allows null values but boolean does not allow null values
 }

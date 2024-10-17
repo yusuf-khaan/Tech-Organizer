@@ -77,6 +77,7 @@ function Famchat() {
     }
   };
 
+  // console.log(userDetails);
   // Update comments in the backend database
   const addCommentToDatabase = async (comment) => {
     try {
@@ -128,6 +129,34 @@ function Famchat() {
     }
   };
 
+
+
+  const vote = async (e) => {
+    try {
+      const request = await fetch("https://localhost:8081/pOne/vote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json"
+        },
+        body: JSON.stringify({
+          "user_id": userDetails.id,
+          "post_id": postDetails.post_id,
+          "vote": e
+        }),
+      })
+      console.log({
+        "user_id": userDetails.id,
+        "post_id": postDetails.post_id,
+        "vote": e
+      });
+      const vote_status = await request.text();
+      console.log(vote_status);
+    }
+    catch (e) {
+      console.log("could not upvote");
+    }
+  }
+
   return (
     <div className="bg-black absolute h-full overflow-y-auto w-full">
       <h1
@@ -158,11 +187,11 @@ function Famchat() {
 
           {/* Upvote Button Section */}
           <div className="flex justify-between items-center shadow-black shadow-md bg-[#F7F7F7]/10 w-[12%] h-[40px] rounded-full p-2 mt-3">
-            <button className="flex hover:scale-125 items-center">
+            <button onClick={() => vote(false)} className="flex hover:scale-125 items-center">
               <BiUpvote className="text-md" />
               <span className="text-sm ml-2">0</span>
             </button>
-            <button className="flex hover:scale-125 items-center justify-center">
+            <button onClick={() => vote(false)} className="flex hover:scale-125 items-center justify-center">
               <BiUpvote className="text-md" />
             </button>
           </div>

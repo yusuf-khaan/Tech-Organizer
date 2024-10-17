@@ -7,13 +7,16 @@ import com.p1.p1.models.CommentsDTO;
 import com.p1.p1.models.Feedback;
 import com.p1.p1.models.Post;
 import com.p1.p1.models.Questions;
+import com.p1.p1.models.UserActionOnPost;
 import com.p1.p1.models.UserpostDTO;
+import com.p1.p1.models.Voting;
 import com.p1.p1.models.pOneModel;
 import com.p1.p1.models.postDTO;
 import com.p1.p1.models.userDTO;
 import com.p1.p1.models.viewpostDTO;
 import com.p1.p1.pOneService.BookmarkService;
 import com.p1.p1.pOneService.PostService;
+import com.p1.p1.pOneService.VotingService;
 import com.p1.p1.pOneService.pOneService;
 import com.p1.p1.pOneService.questionService;
 
@@ -30,6 +33,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+
+// if i go see the post that is just saved then it wont be saved!!, solve that issue
+// we use model name when we use jpa auto query
+// we use dbs column name we define @Query custom query
+
 
 @CrossOrigin(origins = "https://localhost:5173")
 @RestController
@@ -48,12 +57,15 @@ public class pOneController {
     @Autowired
     private BookmarkService bookmarkservice;
 
+    @Autowired
+    private VotingService votingService;
+
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public userDTO login(@RequestBody pOneModel request) {
         // System.out.println(request.getMail());
         // System.out.println(request.getPassword());
         pOneModel userOrg = poneService.login(request);
-        System.out.println(request);
+        // System.out.println(request);
         if (userOrg != null) {
             userDTO user = new userDTO(userOrg.getId(), userOrg.getName(), userOrg.getMail());
             return user;
@@ -73,10 +85,10 @@ public class pOneController {
         String path = "C:/Users/LENOVO/OneDrive/Desktop/papper.pdf";
         try {
             questionservice.processPdf(path);
-            System.out.println("Success");
+            // System.out.println("Success");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("error caught");
+            // System.out.println(e.getMessage());
+            // System.out.println("error caught");
         }
 
     }
@@ -106,7 +118,7 @@ public class pOneController {
         List<BookmarkedPost> bookmarkedpost = bookmarkservice.getbBookmarkedPost(user_id);
         List<postDTO> posts = new ArrayList<>();
         for(BookmarkedPost post : bookmarkedpost) {
-            postDTO temp = new postDTO(post.getPost().getId(), post.getPost().getUser().getName(), post.getUser().getId(), post.getPost().getXp(), post.getPost().getUpvote(), post.getPost().getDownvote());
+            postDTO temp = new postDTO(post.getPost().getId(), post.getPost().getUser().getName(), post.getUser().getId(), post.getPost().getXp(), null, null);
             posts.add(temp);
         }
         return posts;
@@ -119,7 +131,7 @@ public class pOneController {
         List<Post> original = postService.userFeed(range);
         for (Post post : original) {
             postDTO postDTO = new postDTO(post.getId(), post.getUser().getName(), post.getUser().getId(), post.getXp(),
-                    post.getUpvote(), post.getDownvote());
+                    null, null);
             posts.add(postDTO);
         }
         return posts;
@@ -135,8 +147,7 @@ public class pOneController {
             comments.add(new CommentsDTO(comms.getId(), comms.getUser().getName(), comms.getComment()));
         }
 
-        viewpostDTO viewpost = new viewpostDTO(post.getId(), post.getXp(), post.getUser().getName(), post.getUpvote(),
-                post.getDownvote(), comments);
+        viewpostDTO viewpost = new viewpostDTO(post.getId(), post.getXp(), post.getUser().getName(), null, null, comments);
         return viewpost;
     }
 
@@ -153,7 +164,7 @@ public class pOneController {
         List<UserpostDTO> userposts = new ArrayList<>();
         for (Post post : posts) {
             UserpostDTO userpost = new UserpostDTO(post.getId(), post.getUser().getName(), post.getXp(),
-                    post.getUpvote(), post.getDownvote());
+                   null, null);
             userposts.add(userpost);
         }
         return userposts;
@@ -162,6 +173,11 @@ public class pOneController {
     @GetMapping("/Testgetcomment")
     public Comments getComment(@RequestParam Integer id) {
         return postService.comm(id);
+    }
+
+    @PostMapping("/vote")
+    public Voting upvote (@RequestBody UserActionOnPost action) {
+        return votingService.vote(action);
     }
 
 }
